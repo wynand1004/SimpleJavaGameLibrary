@@ -1,23 +1,33 @@
 import java.awt.*;    // Using AWT's Graphics and Color
 import javax.swing.*; // Using Swing's components and containers
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import java.util.ArrayList;
  
 /**
  * Simple Java Game Library based on:
  * https://www3.ntu.edu.sg/home/ehchua/programming/java/J4b_CustomGraphics.html
  */
-public class Game extends JFrame 
+public class Game extends JFrame
 {
    // Define named-constants
-   private static final int CANVAS_WIDTH = 640;
-   private static final int CANVAS_HEIGHT = 480;
+   private static final int CANVAS_WIDTH = 1024;
+   private static final int CANVAS_HEIGHT = 768;
    private static final int UPDATE_INTERVAL = 30; // milliseconds
  
    private DrawCanvas canvas;  // the drawing canvas (an inner class extends JPanel)
- 
+   
+   private JButton btnTemp;
+   
    // Sprites
    private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
- 
+   
+   private String key = "";
  
    // Attributes
    private Color backgroundColor = Color.BLACK;
@@ -27,11 +37,32 @@ public class Game extends JFrame
    {
       canvas = new DrawCanvas();
       canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+
       this.setContentPane(canvas);
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
       this.pack();
       this.setTitle(title);
       this.setVisible(true);
+      
+      // Add KeyListener
+      btnTemp = new JButton(" ");
+      this.add(btnTemp);
+      btnTemp.addKeyListener(new KeyListener()
+      {  
+        public void keyPressed(KeyEvent e){  
+                  registerKeyPress(e.getKeyText(e.getKeyCode()));
+        }  
+        
+        public void keyTyped(KeyEvent e)
+        {
+            
+        }
+        
+        public void keyReleased(KeyEvent e)
+        {
+             registerKeyRelease(e.getKeyText(e.getKeyCode()));
+        }
+      }); 
  
       // Create a new thread to run update at regular interval
       Thread updateThread = new Thread() 
@@ -86,5 +117,27 @@ public class Game extends JFrame
    public void setBackgroundColor(Color color)
    {
        this.backgroundColor = color;
+   }
+   
+   public void registerKeyPress(String key)
+   {
+        // System.out.println("Key: " + key + " pressed.");
+        this.key = key;
+   }
+   
+   public void registerKeyRelease(String key)
+   {
+        // System.out.println("Key: " + key + " released.");
+        this.key = "";
+   }
+   
+   public String getKey()
+   {
+       return key;
+   }
+   
+   public ArrayList<Sprite> getSprites()
+   {
+       return sprites;
    }
 }

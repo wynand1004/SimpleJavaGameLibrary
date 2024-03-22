@@ -5,11 +5,13 @@ class Sprite
     // Simple Sprite Class
     private double x = 0.0;
     private double y = 0.0;
-    private double dx = 1.0;
-    private double dy = 1.0;
+    private double dx = 0.0;
+    private double dy = 0.0;
     private double size = 24.0;
     private boolean bounce = true;
     private boolean warp = false;
+    private Color color = Color.BLUE;
+    private boolean active = true;
     
     Sprite(double x, double y)
     {
@@ -47,16 +49,30 @@ class Sprite
         this.warp = warp;
     }
     
+    public void setColor(Color color)
+    {
+        this.color = color;
+    }
     
     
     public void render(Graphics g)
     {
-        g.setColor(Color.BLUE);
+        if(!active)
+        {
+            return;
+        }
+        
+        g.setColor(color);
         g.fillOval((int)x, (int)y, (int)size, (int)size);
     }
     
     public void update(double CANVAS_WIDTH, double CANVAS_HEIGHT)
     {
+      if(!active)
+      {
+         return;
+      }
+      
       x += dx;
       y += dy;
       
@@ -97,5 +113,25 @@ class Sprite
           }          
           
       }
+    }
+    
+    public boolean isCollision(Sprite other)
+    {
+        double a = this.x - other.x;
+        double b = this.y - other.y;
+        
+        double distance = Math.sqrt(a*a + b*b);
+        
+        if(distance < ((this.size+other.size)/2.0))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public void setActive(boolean active)
+    {
+        this.active = active;
     }
 }
