@@ -7,28 +7,33 @@ class DemoGame
    {
       Game game = new Game("My Game");
       game.setBackgroundColor(Color.YELLOW);
-      game.setFPS(50);
+      game.setFPS(60);
             
       // Create Sprites
-      Sprite player = new Sprite(0.0, 0.0);
+      Sprite player = new Sprite(0.0, 0.0, "player.png");
       player.setColor(Color.RED);
       
       game.addSprite(player);
       
       // Add a few more Sprites for fun
-      for(int i=0;i<20;i++)
+      for(int i=0;i<100;i++)
       {
-          Sprite sprite = new Sprite(200, 200);
-          double dx = Math.random() * 100 - 50;
+          Sprite sprite = new Sprite(512, 384);
+          double dx = Math.random() * 200 - 100;
           double dy = Math.random() * 100 - 50;
           sprite.setDX(dx);
           sprite.setDY(dy);
+          int r = (int)(Math.random() * 256);
+          int g = (int)(Math.random() * 256);
+          int b = (int)(Math.random() * 256);
+          sprite.setColor(new Color(r, g, b));
           game.addSprite(sprite);
       }
       
       // Create sounds
       Sound beep = new Sound("beep.wav");
       
+      // Main Game Loop
       while(true)
       {
           // Deal with keypresses
@@ -73,7 +78,6 @@ class DemoGame
                   // sprite.setActive(false);
               }
           }
-          
       }
    }
 }

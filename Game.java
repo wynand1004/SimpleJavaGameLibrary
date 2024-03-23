@@ -20,23 +20,27 @@ public class Game extends JFrame
     private int CANVAS_HEIGHT = 768;
     private int UPDATE_INTERVAL = 20; // milliseconds
     
-    private int fps = 60;
+    private int fps = 50;
     
+    // Calulate dt (delta time)
     private long start;
     private long end;
     private double dt = 1.0;
  
     private DrawCanvas canvas;  // the drawing canvas (an inner class extends JPanel)
     
+    // Need this for keyboard binding (TODO: FIX THIS)
     private JButton btnTemp;
     
     // Sprites
     private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
     
+    // Currently pressed key
     private String key = "";
  
     // Attributes
     private Color backgroundColor = Color.BLACK;
+    private double gravity = 0.0;
  
     // Constructor to setup the GUI components and event handlers
     public Game(String title) 
@@ -78,12 +82,15 @@ public class Game extends JFrame
             {
                 while (true) 
                 {  
+                    // Calculate dt starting time
                     start = System.currentTimeMillis();
                      
                     // Update sprites
                     for(Sprite sprite: sprites)
                     {
-                     sprite.update(CANVAS_WIDTH, CANVAS_HEIGHT, dt);    
+                        // Add gravity
+                        sprite.setDY(sprite.getDY() + gravity);
+                        sprite.update(CANVAS_WIDTH, CANVAS_HEIGHT, dt);    
                     }
                     
                     repaint();  // Refresh the JFrame. Called back paintComponent()
@@ -92,6 +99,8 @@ public class Game extends JFrame
                     {
                         // Delay and give other thread a chance to run
                         Thread.sleep(UPDATE_INTERVAL);  // milliseconds
+                        
+                        // Update dt
                         end = System.currentTimeMillis();
                         dt = (double)((end-start)/1000F);
                         // System.out.println("dt: " + dt);

@@ -1,4 +1,7 @@
 import java.awt.*;    // Using AWT's Graphics and Color
+import java.awt.image.*;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 class Sprite
 {
@@ -12,11 +15,27 @@ class Sprite
     private boolean warp = false;
     private Color color = Color.BLUE;
     private boolean active = true;
+    private BufferedImage image = null;
     
     Sprite(double x, double y)
     {
         this.x = x;
         this.y = y;
+    }
+    
+    Sprite(double x, double y, String filename)
+    {
+        this.x = x;
+        this.y = y;
+        
+        try
+        {
+            BufferedImage image = ImageIO.read(new File(filename));
+            this.image = image;
+        }
+        catch(Exception e)
+        {
+        }
     }
     
     public void setX(double x)
@@ -37,6 +56,11 @@ class Sprite
     public void setDY(double dy)
     {
         this.dy = dy;
+    }
+    
+    public double getDY()
+    {
+        return this.dy;
     }
     
     public void setBounce(boolean bounce)
@@ -62,8 +86,17 @@ class Sprite
             return;
         }
         
-        g.setColor(color);
-        g.fillOval((int)x, (int)y, (int)size, (int)size);
+        if(!(image==null))
+        {
+            // Render image
+            g.drawImage(image, (int)x, (int)y, null);
+        }
+        else
+        {
+            // Render circle (default)
+            g.setColor(color);
+            g.fillOval((int)x, (int)y, (int)size, (int)size);
+        }
     }
     
     public void update(double CANVAS_WIDTH, double CANVAS_HEIGHT, double dt)
