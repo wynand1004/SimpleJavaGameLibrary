@@ -66,15 +66,15 @@ class Sprite
         g.fillOval((int)x, (int)y, (int)size, (int)size);
     }
     
-    public void update(double CANVAS_WIDTH, double CANVAS_HEIGHT)
+    public void update(double CANVAS_WIDTH, double CANVAS_HEIGHT, double dt)
     {
       if(!active)
       {
          return;
       }
       
-      x += dx;
-      y += dy;
+      x += dx * dt;
+      y += dy * dt;
       
       // bounce
       if(bounce)

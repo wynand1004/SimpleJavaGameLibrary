@@ -1,4 +1,5 @@
 import java.awt.Color;
+import javax.sound.sampled.*;
 
 class MyGame
 {
@@ -7,6 +8,7 @@ class MyGame
    {
       Game game = new Game("My Game");
       game.setBackgroundColor(Color.YELLOW);
+      game.setFPS(50);
             
       // Create Sprites
       Sprite player = new Sprite(0.0, 0.0);
@@ -18,8 +20,8 @@ class MyGame
       for(int i=0;i<20;i++)
       {
           Sprite sprite = new Sprite(200, 200);
-          double dx = Math.random() * 5;
-          double dy = Math.random() * 5;
+          double dx = Math.random() * 100;
+          double dy = Math.random() * 100;
           sprite.setDX(dx);
           sprite.setDY(dy);
           game.addSprite(sprite);
@@ -28,29 +30,29 @@ class MyGame
       while(true)
       {
           // Deal with keypresses
-          System.out.println(game.getKey());
+          // System.out.println(game.getKey());
           
           if(game.getKey().equals("A"))
           {
-                player.setDX(-3);
+                player.setDX(-100);
                 player.setDY(0);
           }
           
           if(game.getKey().equals("D"))
           {
-                player.setDX(3);
+                player.setDX(100);
                 player.setDY(0);
           }
           
           if(game.getKey().equals("W"))
           {
-                player.setDY(-3);
+                player.setDY(-100);
                 player.setDX(0);
           }
           
           if(game.getKey().equals("S"))
           {
-                player.setDY(3);
+                player.setDY(100);
                 player.setDX(0);
           }
           
@@ -65,6 +67,7 @@ class MyGame
               if(player.isCollision(sprite))
               {
                   sprite.setColor(Color.BLACK);
+                  game.playSound("beep.wav");
                   // sprite.setActive(false);
               }
           }
