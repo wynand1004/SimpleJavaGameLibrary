@@ -5,30 +5,21 @@ class DemoGame
    // Main Method
    public static void main(String[] args)
    {
-      Game game = new Game("My Game");
-      game.setBackgroundColor(Color.YELLOW);
-      game.setFPS(60);
+      Game game = new Game("Side Scrolling Shooter Demo");
+      game.setBackgroundColor(Color.BLUE);
+      game.setFPS(30);
             
       // Create Sprites
-      Sprite player = new Sprite(0.0, 0.0, "player.png");
-      player.setColor(Color.RED);
-      
+      Sprite player = new Sprite(0, 400, "player.png");
       game.addSprite(player);
       
-      // Add a few more Sprites for fun
-      for(int i=0;i<100;i++)
-      {
-          Sprite sprite = new Sprite(512, 384);
-          double dx = Math.random() * 200 - 100;
-          double dy = Math.random() * 100 - 50;
-          sprite.setDX(dx);
-          sprite.setDY(dy);
-          int r = (int)(Math.random() * 256);
-          int g = (int)(Math.random() * 256);
-          int b = (int)(Math.random() * 256);
-          sprite.setColor(new Color(r, g, b));
-          game.addSprite(sprite);
-      }
+      Sprite missile = new Sprite(100.0, 0.0, "missile.png");
+      missile.setDX(200);
+      game.addSprite(missile);
+      
+      Sprite enemy = new Sprite(1000.0, 400.0, "enemy.png");
+      enemy.setDX(-100);
+      game.addSprite(enemy);
       
       // Create sounds
       Sound beep = new Sound("beep.wav");
@@ -38,32 +29,25 @@ class DemoGame
       {
           // Deal with keypresses
           // System.out.println(game.getKey());
-          
-          if(game.getKey().equals("A"))
-          {
-                player.setDX(-100);
-                player.setDY(0);
-          }
-          
-          if(game.getKey().equals("D"))
-          {
-                player.setDX(100);
-                player.setDY(0);
-          }
-          
-          if(game.getKey().equals("W"))
+          if(game.getKey().equals("Up"))
           {
                 player.setDY(-100);
                 player.setDX(0);
           }
           
-          if(game.getKey().equals("S"))
+          if(game.getKey().equals("Down"))
           {
                 player.setDY(100);
                 player.setDX(0);
           }
           
-          // Check for player collision
+          if(game.getKey().equals("Space"))
+          {
+                missile.setY(player.getY()+20);
+                missile.setX(player.getX()+100);
+          }
+          
+          // Check for collisions
           for(Sprite sprite: game.getSprites())
           {
               if(sprite==player)
@@ -71,11 +55,15 @@ class DemoGame
                   continue;
               }
               
-              if(player.isCollision(sprite))
+              if(sprite==missile)
               {
-                  sprite.setColor(Color.BLACK);
-                  beep.playSound();
-                  // sprite.setActive(false);
+                  continue;
+              }
+              
+              if(missile.isCircleCollision(sprite))
+              {
+                  sprite.setX(1200);
+                  missile.setX(12000);
               }
           }
       }

@@ -6,15 +6,26 @@ import java.io.File;
 class Sprite
 {
     // Simple Sprite Class
+    // Default location and acceleration
     private double x = 0.0;
     private double y = 0.0;
     private double dx = 0.0;
     private double dy = 0.0;
+    
+    // Default sizes
+    private double width = 24.0;
+    private double height = 24.0;
     private double size = 24.0;
-    private boolean bounce = true;
+    
+    // Initial state
+    private boolean bounce = false;
     private boolean warp = false;
+    private boolean stop = false;
+    
     private Color color = Color.BLUE;
     private boolean active = true;
+    
+    // Image
     private BufferedImage image = null;
     
     Sprite(double x, double y)
@@ -32,6 +43,11 @@ class Sprite
         {
             BufferedImage image = ImageIO.read(new File(filename));
             this.image = image;
+            
+            this.width = image.getWidth();
+            this.height = image.getHeight();
+            
+            // System.out.println(this.width + " x " + this.height);
         }
         catch(Exception e)
         {
@@ -43,9 +59,19 @@ class Sprite
         this.x = x;
     }
     
+    public double getX()
+    {
+        return this.x;
+    }
+    
     public void setY(double y)
     {
         this.y = y;
+    }
+    
+    public double getY()
+    {
+        return this.y;
     }
     
     public void setDX(double dx)
@@ -95,7 +121,7 @@ class Sprite
         {
             // Render circle (default)
             g.setColor(color);
-            g.fillOval((int)x, (int)y, (int)size, (int)size);
+            g.fillOval((int)x, (int)y, (int)width, (int)height);
         }
     }
     
@@ -144,11 +170,37 @@ class Sprite
           {
              this.y = CANVAS_HEIGHT - size;
           }          
+      }
+      
+      else if(stop)
+      {
+          if (x > CANVAS_WIDTH - size || x < 0) 
+          {
+             dx = 0;
+          }
+          
+          if (y > CANVAS_HEIGHT - size || y < 0) 
+          {
+             dy = 0;
+          }
           
       }
     }
     
     public boolean isCollision(Sprite other)
+    {
+        if(this.x < other.x + other.width &&
+            this.x + this.width > other.x &&
+            this.y < other.y + other.height &&
+            this.y + this.height > other.y)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean isCircleCollision(Sprite other)
     {
         double a = this.x - other.x;
         double b = this.y - other.y;
