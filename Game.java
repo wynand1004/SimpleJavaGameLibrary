@@ -7,9 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import java.io.File;
-import javax.sound.sampled.*;
-
 import java.util.ArrayList;
  
 /**
@@ -159,25 +156,5 @@ public class Game extends JFrame
     {
         this.fps = fps;
         this.UPDATE_INTERVAL = (int)(1000.0 / fps);
-    }
-
-    public void playSound(String filename)
-    {
-        // System.out.println("playSound");
-        new Thread(() -> 
-        {
-            try
-            {
-                Clip clip = AudioSystem.getClip();
-                clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-                clip.setFramePosition(0);
-                clip.start();
-            }       
-            catch (Exception exc)
-            {
-                exc.printStackTrace(System.out);
-            }
-            
-        }).start(); 
     }
 }
