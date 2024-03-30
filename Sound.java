@@ -25,7 +25,7 @@ class Sound
         }
     }
     
-    public void playSound()
+    public void play()
     {
         // System.out.println("playSound");
         // System.out.println("lengthTime: " + this.lengthTime);

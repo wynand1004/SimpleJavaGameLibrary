@@ -46,8 +46,6 @@ class Sprite
             
             this.width = image.getWidth();
             this.height = image.getHeight();
-            
-            // System.out.println(this.width + " x " + this.height);
         }
         catch(Exception e)
         {

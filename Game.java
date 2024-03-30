@@ -1,5 +1,7 @@
-import java.awt.*;     // Using AWT's Graphics and Color
-import javax.swing.*; // Using Swing's components and containers
+import java.awt.*;
+import javax.swing.*;
+
+import javax.swing.Timer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,18 +18,16 @@ import java.util.ArrayList;
 public class Game extends JFrame
 {
     // Define named-constants
-    private int CANVAS_WIDTH = 1024;
-    private int CANVAS_HEIGHT = 768;
-    private int UPDATE_INTERVAL = 20; // milliseconds
+    final private int CANVAS_WIDTH = 1024;
+    final private int CANVAS_HEIGHT = 768;
     
+    private int UPDATE_INTERVAL = 20; // milliseconds
     private int fps = 50;
     
-    // Calulate dt (delta time)
-    private long start;
-    private long end;
-    private double dt = 1.0;
+    // dt (delta time) to keep framerates consistent
+    private double dt = 0.02;
  
-    private DrawCanvas canvas;  // the drawing canvas (an inner class extends JPanel)
+    private DrawCanvas canvas;  // the drawing canvas (using an inner class extends JPanel)
     
     // Need this for keyboard binding (TODO: FIX THIS)
     private JButton btnTemp;
@@ -41,23 +41,27 @@ public class Game extends JFrame
     // Attributes
     private Color backgroundColor = Color.BLACK;
     private double gravity = 0.0;
+    
+    // Controls repaint and game updates
+    private Timer timer;
  
     // Constructor to setup the GUI components and event handlers
     public Game(String title) 
     {
         canvas = new DrawCanvas();
+        canvas.setDoubleBuffered(true);
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-
+        canvas.setFocusable(true);
+        canvas.requestFocusInWindow();
+        
         this.setContentPane(canvas);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.setTitle(title);
         this.setVisible(true);
         
-        // Add KeyListener
-        btnTemp = new JButton(" ");
-        this.add(btnTemp);
-        btnTemp.addKeyListener(new KeyListener()
+        // Add KeyListener to canvas
+        canvas.addKeyListener(new KeyListener()
         {  
           public void keyPressed(KeyEvent e){  
                  registerKeyPress(e.getKeyText(e.getKeyCode()));
@@ -74,44 +78,24 @@ public class Game extends JFrame
           }
         }); 
  
-        // Create a new thread to run update at regular interval
-        Thread updateThread = new Thread() 
-        {
+        // Create a timer to repaint, and update sprites
+        timer = new Timer(UPDATE_INTERVAL, new ActionListener() {
+            
             @Override
-            public void run() 
-            {
-                while (true) 
-                {  
-                    // Calculate dt starting time
-                    start = System.currentTimeMillis();
-                     
-                    // Update sprites
-                    for(Sprite sprite: sprites)
-                    {
-                        // Add gravity
-                        sprite.setDY(sprite.getDY() + gravity);
-                        sprite.update(CANVAS_WIDTH, CANVAS_HEIGHT, dt);    
-                    }
-                    
-                    repaint();  // Refresh the JFrame. Called back paintComponent()
-                    
-                    try 
-                    {
-                        // Delay and give other thread a chance to run
-                        Thread.sleep(UPDATE_INTERVAL);  // milliseconds
-                        
-                        // Update dt
-                        end = System.currentTimeMillis();
-                        dt = (double)((end-start)/1000F);
-                        // System.out.println("dt: " + dt);
-                    } 
-                    catch (InterruptedException ignore) 
-                    {
-                    }
+            public void actionPerformed(ActionEvent ae) {
+                repaint();
+        
+                // Update sprites
+                for(Sprite sprite: sprites)
+                {
+                    // Add gravity
+                    sprite.setDY(sprite.getDY() + gravity);
+                    sprite.update(CANVAS_WIDTH, CANVAS_HEIGHT, dt);    
                 }
             }
-        };
-        updateThread.start(); // called back run()
+        });
+        
+        timer.start();
     }
   
     // Define Inner class DrawCanvas, which is a JPanel used for custom drawing
@@ -119,6 +103,16 @@ public class Game extends JFrame
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);  // paint parent's background
+            
+            // Render game sprites
+            render(g);
+            
+            // This avoids random slowdowns on Linux
+            Toolkit.getDefaultToolkit().sync();
+        }
+        
+        private void render(Graphics g)
+        {
             setBackground(backgroundColor);
             
             // Render Sprites
@@ -126,12 +120,20 @@ public class Game extends JFrame
             {
                 sprite.render(g);
             }
+            
+            // Render Text
         }
     }
     
+    // Public methods
     public void addSprite(Sprite sprite)
     {
          sprites.add(sprite);
+    }
+    
+    public void removeSprite(Sprite sprite)
+    {
+        sprites.remove(sprite);
     }
     
     public void setBackgroundColor(Color color)
@@ -139,15 +141,14 @@ public class Game extends JFrame
          this.backgroundColor = color;
     }
     
+    // Keyboard 
     public void registerKeyPress(String key)
     {
-          // System.out.println("Key: " + key + " pressed.");
           this.key = key;
     }
     
     public void registerKeyRelease(String key)
     {
-          // System.out.println("Key: " + key + " released.");
           this.key = "";
     }
     
@@ -156,14 +157,19 @@ public class Game extends JFrame
          return key;
     }
     
+    // Sprites ArrayList
     public ArrayList<Sprite> getSprites()
     {
          return sprites;
     }
     
+    // Set FPS (also updates UPDATE_INTERVAL and dt
     public void setFPS(int fps)
     {
         this.fps = fps;
         this.UPDATE_INTERVAL = (int)(1000.0 / fps);
+        this.dt = UPDATE_INTERVAL / 1000.0;
+        
+        this.timer.setDelay(this.UPDATE_INTERVAL);
     }
 }

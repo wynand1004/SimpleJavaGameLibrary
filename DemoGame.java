@@ -6,14 +6,14 @@ class DemoGame
    public static void main(String[] args)
    {
       Game game = new Game("Side Scrolling Shooter Demo");
-      game.setBackgroundColor(Color.BLUE);
-      game.setFPS(30);
+      game.setBackgroundColor(Color.BLACK);
+      game.setFPS(60);
             
       // Create Sprites
       Sprite player = new Sprite(0, 400, "player.png");
       game.addSprite(player);
       
-      Sprite missile = new Sprite(100.0, 0.0, "missile.png");
+      Sprite missile = new Sprite(12000.0, 0.0, "missile.png");
       missile.setDX(200);
       game.addSprite(missile);
       
@@ -28,7 +28,6 @@ class DemoGame
       while(true)
       {
           // Deal with keypresses
-          // System.out.println(game.getKey());
           if(game.getKey().equals("Up"))
           {
                 player.setDY(-100);
@@ -64,6 +63,7 @@ class DemoGame
               {
                   sprite.setX(1200);
                   missile.setX(12000);
+                  beep.play();
               }
           }
       }
