@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+
 import java.util.ArrayList;
  
 /**
@@ -62,21 +65,37 @@ public class Game extends JFrame
         
         // Add KeyListener to canvas
         canvas.addKeyListener(new KeyListener()
-        {  
+        { 
+          @Override
           public void keyPressed(KeyEvent e){  
                  registerKeyPress(e.getKeyText(e.getKeyCode()));
           }  
           
+          @Override
           public void keyTyped(KeyEvent e)
           {
                 
           }
           
+          @Override
           public void keyReleased(KeyEvent e)
           {
                  registerKeyRelease(e.getKeyText(e.getKeyCode()));
           }
         }); 
+        
+        // MouseListener to canvas
+        canvas.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    System.out.println("Mouse Pressed: " + e.getX() + " " + e.getY());
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    System.out.println("Mouse Released: " + e.getX() + " " + e.getY());
+                }
+            });
  
         // Create a timer to repaint, and update sprites
         timer = new Timer(UPDATE_INTERVAL, new ActionListener() {
