@@ -11,6 +11,45 @@ Compile the Java files and execute DemoGame.java.
 
 ## Game Class
 
+### Create a game object
+
+```Game game = new Game("Side Scrolling Shooter Demo");```
+```game.setBackgroundColor(Color.BLACK);```
+```game.setFPS(30);```
+
+Default canvas size is 1024 x 768.
+
+### Keyboard
+
+```game.getKey() returns a String```
+
+#### Keys
+ - Up
+ - Down
+ - Left
+ - Right
+ - Space
+ - A - Z
+ - 0 - 9
+ - Others
+
+### Mouse
+
+```game.getIsMousePressed()```
+
+```game.getMouseX()```
+```game.getMouseY()```
+
+### Sprites
+
+All sprites are stored in an ArrayList.
+
+```game.getSprites()```
+
+Returns an ArrayList of Sprite objects.
+
+```game.addSprite(Sprite s)```
+
 ## Sprite Class
 
 ### Create a sprite object
@@ -22,6 +61,18 @@ Ex: ```Sprite player = new Sprite(100.0, 100.0);```
 Sprite spriteName = new Sprite(double x, double y, String filename);
 
 Ex: ```Sprite player = new Sprite(100.0, 100.0, "player.png");```
+
+### Sprite Methods
+
+.getX()
+.getY()
+.setX()
+.setY()
+.setDX()
+.setDY()
+
+.isCollision(Sprite other)
+.isCircleCollision(Sprite other)
 
 ## Sound Class
 
