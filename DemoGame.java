@@ -51,6 +51,16 @@ class DemoGame
                 missile.setX(player.getX()+100);
           }
           
+          // Mouse clicked
+          if(game.getIsMousePressed())
+          {
+              System.out.println("MOUSE DOWN at " + game.getMouseX() + " " + game.getMouseY());
+          }
+          else
+          {
+              System.out.println("MOUSE RELEASED at " + game.getMouseX() + " " + game.getMouseY());
+          }
+          
           // Check for collisions
           for(Sprite sprite: game.getSprites())
           {

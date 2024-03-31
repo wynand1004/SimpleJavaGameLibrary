@@ -40,6 +40,12 @@ public class Game extends JFrame
     
     // Currently pressed key
     private String key = "";
+    
+    // Mouse presses
+    private boolean isMousePressed = false;
+    
+    private int mouseX = 0;
+    private int mouseY = 0;
  
     // Attributes
     private Color backgroundColor = Color.BLACK;
@@ -88,12 +94,18 @@ public class Game extends JFrame
         canvas.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    System.out.println("Mouse Pressed: " + e.getX() + " " + e.getY());
+                    mouseX = e.getX();
+                    mouseY = e.getY();
+                    isMousePressed = true;
+                    // System.out.println("Mouse Pressed: " + e.getX() + " " + e.getY());
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    System.out.println("Mouse Released: " + e.getX() + " " + e.getY());
+                    mouseX = e.getX();
+                    mouseY = e.getY();
+                    isMousePressed = false;
+                    // System.out.println("Mouse Released: " + e.getX() + " " + e.getY());
                 }
             });
  
@@ -174,6 +186,22 @@ public class Game extends JFrame
     public String getKey()
     {
          return key;
+    }
+    
+    // Mouse
+    public boolean getIsMousePressed()
+    {
+        return isMousePressed;
+    }
+    
+    public int getMouseX()
+    {
+        return mouseX;
+    }
+    
+    public int getMouseY()
+    {
+        return mouseY;
     }
     
     // Sprites ArrayList
