@@ -29,6 +29,10 @@ class DemoGame
       // Create sounds
       Sound explosion = new Sound("explosion.wav");
       
+      // Create labels
+      Label score = new Label("Score: 0", 500, 25);
+      game.addLabel(score);
+      
       // Main Game Loop
       while(true)
       {
@@ -54,11 +58,11 @@ class DemoGame
           // Mouse clicked
           if(game.getIsMousePressed())
           {
-              System.out.println("MOUSE DOWN at " + game.getMouseX() + " " + game.getMouseY());
+              // System.out.println("MOUSE DOWN at " + game.getMouseX() + " " + game.getMouseY());
           }
           else
           {
-              System.out.println("MOUSE RELEASED at " + game.getMouseX() + " " + game.getMouseY());
+              // System.out.println("MOUSE RELEASED at " + game.getMouseX() + " " + game.getMouseY());
           }
           
           // Check for collisions
