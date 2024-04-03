@@ -30,6 +30,7 @@ class DemoGame
       
       // Create sounds
       Sound explosion = new Sound("explosion.wav");
+      Sound bgm = new Sound("bgm.wav");
       
       // Create labels
       Label scoreLabel = new Label("Score: 0", 500, 25);
@@ -41,6 +42,9 @@ class DemoGame
       // Main Game Loop
       while(true)
       {
+          // Play background music
+          bgm.play();
+          
           // Deal with keypresses
           if(game.getKey() == KeyEvent.VK_UP)
           {
