@@ -21,6 +21,7 @@ class Sprite
     private boolean bounce = false;
     private boolean warp = false;
     private boolean stop = false;
+    private boolean boundingBox = false;
     
     private Color color = Color.BLUE;
     private boolean active = true;
@@ -46,6 +47,10 @@ class Sprite
             
             this.width = image.getWidth();
             this.height = image.getHeight();
+            
+            this.size = (this.width + this.height) / 2;
+            
+            // System.out.println(this.width + " x " + this.height);
         }
         catch(Exception e)
         {
@@ -107,6 +112,10 @@ class Sprite
         this.color = color;
     }
     
+    public void setBoundingBox(boolean boundingBox)
+    {
+        this.boundingBox = boundingBox;
+    }
     
     public void render(Graphics g)
     {
@@ -119,6 +128,16 @@ class Sprite
         {
             // Render image
             g.drawImage(image, (int)x, (int)y, null);
+            
+            // Render bounding box
+            if(this.boundingBox)
+            {
+                g.setColor(Color.RED);
+                g.drawLine((int)this.x, (int)this.y, (int)(this.x + this.width), (int)this.y);
+                g.drawLine((int)this.x, (int)this.y, (int)(this.x), (int)(this.y + this.height));
+                g.drawLine((int)(this.x + this.width), (int)this.y, (int)(this.x + this.width), (int)(this.y + this.height));
+                g.drawLine((int)this.x, (int)(this.y + this.height), (int)(this.x + this.width), (int)(this.y + this.height));
+            }
         }
         else
         {
@@ -141,12 +160,12 @@ class Sprite
       // bounce
       if(bounce)
       {
-          if (x > CANVAS_WIDTH - size || x < 0) 
+          if (x > CANVAS_WIDTH - this.width || x < 0) 
           {
              dx = -dx;
           }
           
-          if (y > CANVAS_HEIGHT - size || y < 0) 
+          if (y > CANVAS_HEIGHT - this.height || y < 0) 
           {
              dy = -dy;
           }
@@ -154,35 +173,35 @@ class Sprite
       
       else if(warp)
       {
-          if (this.x > CANVAS_WIDTH - size) 
+          if (this.x > CANVAS_WIDTH - this.width) 
           {
              this.x = 0.0;
           }
           
-          else if (this.y > CANVAS_HEIGHT - size) 
+          else if (this.y > CANVAS_HEIGHT - this.height) 
           {
              this.y = 0.0;
           }
           
           else if (this.x < 0) 
           {
-             this.x = CANVAS_WIDTH - size;
+             this.x = CANVAS_WIDTH - this.width;
           }
           
           else if (this.y < 0) 
           {
-             this.y = CANVAS_HEIGHT - size;
+             this.y = CANVAS_HEIGHT - this.height;
           }          
       }
       
       else if(stop)
       {
-          if (x > CANVAS_WIDTH - size || x < 0) 
+          if (x > CANVAS_WIDTH - this.width || x < 0) 
           {
              dx = 0;
           }
           
-          if (y > CANVAS_HEIGHT - size || y < 0) 
+          if (y > CANVAS_HEIGHT - this.height || y < 0) 
           {
              dy = 0;
           }
@@ -192,8 +211,8 @@ class Sprite
     
     public boolean isCollision(Sprite other)
     {
-        boolean xOverlap = this.x <= other.x + other.width && this.x + this.width >= other.x;
-        boolean yOverlap = this.y <= other.y + other.height && this.y + this.height >= other.y;
+        boolean xOverlap = (this.x <= (other.x + other.width)) && ((this.x + this.width) >= other.x);
+        boolean yOverlap = (this.y <= (other.y + other.height)) && ((this.y + this.height) >= other.y);
         return xOverlap && yOverlap;
     }
     

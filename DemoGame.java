@@ -19,7 +19,7 @@ class DemoGame
       missile.setDX(200);
       game.addSprite(missile);
       
-      for(int i=0;i<50;i++)
+      for(int i=0;i<25;i++)
       {
         double x = (Math.random() * 1000) + 1024;
         double y = (Math.random() * 768);
@@ -83,7 +83,7 @@ class DemoGame
                   continue;
               }
               
-              if(missile.isCircleCollision(sprite))
+              if(missile.isCollision(sprite))
               {
                   explosion.play();
                   sprite.setX(1200);
