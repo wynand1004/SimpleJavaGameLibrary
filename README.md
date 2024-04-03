@@ -13,24 +13,26 @@ Compile the Java files and execute DemoGame.java.
 
 ### Create a game object
 
-```Game game = new Game("Side Scrolling Shooter Demo");```
+```SJGL game = new SJGL("Side Scrolling Shooter Demo");```
+
 ```game.setBackgroundColor(Color.BLACK);```
+
 ```game.setFPS(30);```
 
 Default canvas size is 1024 x 768.
 
 ### Keyboard
 
-```game.getKey() returns a String```
+```game.getKey() returns KeyEvent.VK_??```
 
 #### Keys
- - Up
- - Down
- - Left
- - Right
- - Space
- - A - Z
- - 0 - 9
+ - Up VK_UP
+ - Down VK_DOWN
+ - Left VK_LEFT
+ - Right VK_RIGHT
+ - Space VK_SPACE
+ - A - Z VK_A ... VK_Z
+ - 0 - 9 VK_0 ... VK_9
  - Others
 
 ### Mouse
