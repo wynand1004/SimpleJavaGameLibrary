@@ -1,23 +1,25 @@
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 class DemoGame
 {
    // Main Method
    public static void main(String[] args)
    {
-      Game game = new Game("Side Scrolling Shooter Demo");
+      SJGL game = new SJGL("Side Scrolling Shooter Demo");
       game.setBackgroundColor(Color.BLACK);
       game.setFPS(30);
             
       // Create Sprites
       Sprite player = new Sprite(0, 400, "player.png");
+      player.setStop(true);
       game.addSprite(player);
       
-      Sprite missile = new Sprite(12000.0, 0.0, "missile.png");
+      Sprite missile = new Sprite(12000.0, 400, "missile.png");
       missile.setDX(200);
       game.addSprite(missile);
       
-      for(int i=0;i<25;i++)
+      for(int i=0;i<50;i++)
       {
         double x = (Math.random() * 1000) + 1024;
         double y = (Math.random() * 768);
@@ -30,26 +32,29 @@ class DemoGame
       Sound explosion = new Sound("explosion.wav");
       
       // Create labels
-      Label score = new Label("Score: 0", 500, 25);
-      game.addLabel(score);
+      Label scoreLabel = new Label("Score: 0", 500, 25);
+      scoreLabel.setColor(Color.GREEN);
+      game.addLabel(scoreLabel);
+      
+      int score = 0;
       
       // Main Game Loop
       while(true)
       {
           // Deal with keypresses
-          if(game.getKey().equals("Up"))
+          if(game.getKey() == KeyEvent.VK_UP)
           {
                 player.setDY(-100);
                 player.setDX(0);
           }
           
-          if(game.getKey().equals("Down"))
+          if(game.getKey() == KeyEvent.VK_DOWN )
           {
                 player.setDY(100);
                 player.setDX(0);
           }
           
-          if(game.getKey().equals("Space"))
+          if(game.getKey() == KeyEvent.VK_SPACE)
           {
                 missile.setY(player.getY()+20);
                 missile.setX(player.getX()+100);
@@ -80,16 +85,18 @@ class DemoGame
               
               if(missile.isCircleCollision(sprite))
               {
+                  explosion.play();
                   sprite.setX(1200);
                   missile.setX(12000);
-                  explosion.play();
+                  score += 1;
+                  scoreLabel.setText("Score: " + score);
               }
               
               // Move missiles back if off screen
               if(sprite.getX() < -100)
               {
                  double x = (Math.random() * 1000) + 1024;
-                 double y = (Math.random() * 400);
+                 double y = (Math.random() * 768);
                  sprite.setX(x);
                  sprite.setY(y);
               }

@@ -97,6 +97,11 @@ class Sprite
         this.warp = warp;
     }
     
+    public void setStop(boolean stop)
+    {
+        this.stop = stop;
+    }
+    
     public void setColor(Color color)
     {
         this.color = color;
@@ -187,15 +192,9 @@ class Sprite
     
     public boolean isCollision(Sprite other)
     {
-        if(this.x < other.x + other.width &&
-            this.x + this.width > other.x &&
-            this.y < other.y + other.height &&
-            this.y + this.height > other.y)
-        {
-            return true;
-        }
-        
-        return false;
+        boolean xOverlap = this.x <= other.x + other.width && this.x + this.width >= other.x;
+        boolean yOverlap = this.y <= other.y + other.height && this.y + this.height >= other.y;
+        return xOverlap && yOverlap;
     }
     
     public boolean isCircleCollision(Sprite other)
