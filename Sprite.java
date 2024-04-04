@@ -57,6 +57,25 @@ class Sprite
         }
     }
     
+    public void setImage(String filename)
+    {
+        try
+        {
+            BufferedImage image = ImageIO.read(new File(filename));
+            this.image = image;
+            
+            this.width = image.getWidth();
+            this.height = image.getHeight();
+            
+            this.size = (this.width + this.height) / 2;
+            
+            // System.out.println(this.width + " x " + this.height);
+        }
+        catch(Exception e)
+        {
+        }
+    }
+    
     public void setX(double x)
     {
         this.x = x;
