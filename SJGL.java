@@ -196,6 +196,11 @@ public class SJGL extends JFrame
          this.backgroundColor = color;
     }
     
+    public void setGravity(double gravity)
+    {
+        this.gravity = gravity;
+    }
+    
     // Keyboard 
     private void registerKeyPress(int key)
     {
