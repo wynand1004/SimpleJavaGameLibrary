@@ -51,6 +51,7 @@ All sprites are stored in an ArrayList.
 Returns an ArrayList of Sprite objects.
 
 ```game.addSprite(Sprite s)```
+Adds a sprite to the ArrayList of game sprites
 
 ## Sprite Class
 
@@ -93,3 +94,13 @@ soundName.play();
 Ex: ```beep.play();```
 
 Note: The sound will play one time all the way through. Subsequent calls to .play will be ignored until the previous play has completed. To play background music, just play the file in the main game loop. 
+
+## Label Class
+
+### Create a label object
+
+Label labelName = new Label(String text, int x, int y);
+
+Ex: ```Label scoreLabel = new Label("Score: 0", 480, 100);```
+
+
