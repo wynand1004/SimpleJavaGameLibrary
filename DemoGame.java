@@ -13,10 +13,12 @@ class DemoGame
       // Create Sprites
       Sprite player = new Sprite(0, 400, "player.png");
       player.setStop(true);
+      player.setBoundingBox(true);
       game.addSprite(player);
       
       Sprite missile = new Sprite(12000.0, 400, "missile.png");
       missile.setDX(200);
+      missile.setBoundingBox(true);
       game.addSprite(missile);
       
       for(int i=0;i<25;i++)
@@ -25,6 +27,7 @@ class DemoGame
         double y = (Math.random() * 768);
         Sprite enemy = new Sprite(x, y, "enemy.png");
         enemy.setDX(Math.random() * -200);
+        enemy.setBoundingBox(true);
         game.addSprite(enemy);
       }
       
@@ -90,8 +93,11 @@ class DemoGame
               if(missile.isCollision(sprite))
               {
                   explosion.play();
-                  sprite.setX(1200);
+                  // sprite.setX(1200);
+                  game.removeSprite(sprite);
+                  
                   missile.setX(12000);
+                  
                   score += 1;
                   scoreLabel.setText("Score: " + score);
               }

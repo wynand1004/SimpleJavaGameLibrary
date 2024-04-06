@@ -40,7 +40,7 @@ public class SJGL extends JFrame
     
     // Labels
     private ArrayList<Label> labels = new ArrayList<Label>();
-    
+        
     // Currently pressed key
     private int key = 0;
     
@@ -149,6 +149,8 @@ public class SJGL extends JFrame
             
             // This avoids random slowdowns on Linux
             Toolkit.getDefaultToolkit().sync();
+            
+
         }
         
         private void render(Graphics g)
@@ -236,7 +238,8 @@ public class SJGL extends JFrame
     // Sprites ArrayList
     public ArrayList<Sprite> getSprites()
     {
-         return sprites;
+         // Return copy to avoid concurrentModificationException
+         return new ArrayList<Sprite>(sprites);
     }
     
     // Set FPS (also updates UPDATE_INTERVAL and dt
