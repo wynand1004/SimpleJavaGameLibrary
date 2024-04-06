@@ -111,6 +111,16 @@ class Sprite
         return this.dy;
     }
     
+    public double getWidth()
+    {
+        return this.width;
+    }
+    
+    public double getHeight()
+    {
+        return this.height;
+    }
+    
     public void setBounce(boolean bounce)
     {
         this.bounce = bounce;

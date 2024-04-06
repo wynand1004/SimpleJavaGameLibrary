@@ -32,9 +32,6 @@ public class SJGL extends JFrame
  
     private DrawCanvas canvas;  // the drawing canvas (using an inner class extends JPanel)
     
-    // Need this for keyboard binding (TODO: FIX THIS)
-    private JButton btnTemp;
-    
     // Sprites
     private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
     
@@ -240,6 +237,12 @@ public class SJGL extends JFrame
     {
          // Return copy to avoid concurrentModificationException
          return new ArrayList<Sprite>(sprites);
+    }
+    
+    public ArrayList<Label> getLabels()
+    {
+         // Return copy to avoid concurrentModificationException
+         return new ArrayList<Label>(labels);
     }
     
     // Set FPS (also updates UPDATE_INTERVAL and dt

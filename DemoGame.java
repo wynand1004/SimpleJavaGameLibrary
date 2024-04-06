@@ -16,7 +16,7 @@ class DemoGame
       player.setBoundingBox(true);
       game.addSprite(player);
       
-      Sprite missile = new Sprite(12000.0, 400, "missile.png");
+      Sprite missile = new Sprite(12000, 400, "missile.png");
       missile.setDX(200);
       missile.setBoundingBox(true);
       game.addSprite(missile);
@@ -93,7 +93,6 @@ class DemoGame
               if(missile.isCollision(sprite))
               {
                   explosion.play();
-                  // sprite.setX(1200);
                   game.removeSprite(sprite);
                   
                   missile.setX(12000);
@@ -103,7 +102,7 @@ class DemoGame
               }
               
               // Move missiles back if off screen
-              if(sprite.getX() < -100)
+              if(sprite.getX() < -sprite.getWidth())
               {
                  double x = (Math.random() * 1000) + 1024;
                  double y = (Math.random() * 768);
