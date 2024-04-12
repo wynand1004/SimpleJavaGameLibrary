@@ -13,7 +13,14 @@ Compile the Java files and execute DemoGame.java.
 
 ### Create a game object
 
+Default title and canvas size.
+``SJGL game = new SJGL();```
+
+Custom title and default canvas size.
 ```SJGL game = new SJGL("Side Scrolling Shooter Demo");```
+
+Custom title and canvas size.
+``SJGL game = new SJGL("Side Scrolling Shooter Demo", 1024, 768);```
 
 ```game.setBackgroundColor(Color.BLACK);```
 
