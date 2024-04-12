@@ -16,6 +16,7 @@ class DemoGame
         
         // Create Sprites
         Sprite player = new Sprite(0, 400, "player.png");
+        player.setStop(true);
         game.addSprite(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
