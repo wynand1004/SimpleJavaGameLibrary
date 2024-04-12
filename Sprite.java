@@ -28,7 +28,10 @@ class Sprite
     
     // Image
     private String filename;
+    // Currently Displayed Image
     private BufferedImage image = null;
+    // Original Image (used for resizing / rotating)
+    private BufferedImage originalImage = null;
     
     Sprite(double x, double y)
     {
@@ -51,6 +54,7 @@ class Sprite
         {
             BufferedImage image = ImageIO.read(new File(filename));
             this.image = image;
+            this.originalImage = image;
             
             this.width = image.getWidth();
             this.height = image.getHeight();
@@ -70,6 +74,7 @@ class Sprite
         {
             BufferedImage image = ImageIO.read(new File(filename));
             this.image = image;
+            this.originalImage = image;
             
             this.width = image.getWidth();
             this.height = image.getHeight();
@@ -306,9 +311,11 @@ class Sprite
     
     public void resize(int width, int height)
     {
-        Image tempImage = this.image.getScaledInstance(width, height, BufferedImage.TYPE_INT_ARGB);
+        Image tempImage = this.originalImage.getScaledInstance(width, height, BufferedImage.TYPE_INT_ARGB);
+        
         BufferedImage buffered = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         buffered.getGraphics().drawImage(tempImage, 0, 0 , null);
+        
         this.image = buffered;
         this.width = width;
         this.height = height;

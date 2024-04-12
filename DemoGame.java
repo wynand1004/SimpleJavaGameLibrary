@@ -16,8 +16,7 @@ class DemoGame
         
         // Create Sprites
         Sprite player = new Sprite(0, 400, "player.png");
-        // player.resize(70, 35);
-        
+                
         player.setStop(true);
         player.setBoundingBox(true);
         game.addSprite(player);
