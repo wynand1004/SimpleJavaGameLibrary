@@ -16,9 +16,9 @@ class DemoGame
         
         // Create Sprites
         Sprite player = new Sprite(0, 400, "player.png");
-                
+        
         player.setStop(true);
-        player.setBoundingBox(true);
+        // player.setBoundingBox(true);
         game.addSprite(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
@@ -26,7 +26,7 @@ class DemoGame
         // missile.setBoundingBox(true);
         game.addSprite(missile);
         
-        for(int i=0;i<25;i++)
+        for(int i=0;i<100;i++)
         {
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);
@@ -34,6 +34,7 @@ class DemoGame
             enemy.setDX((Math.random() * -200));
             // enemy.setBoundingBox(true);
             game.addSprite(enemy);
+            //System.out.println("Enemy #" + i + " Added");
         }
         
         // Create sounds
@@ -49,8 +50,7 @@ class DemoGame
         
         // Main Game Loop
         while(true)
-        {
-            // Play background music
+        {               
             bgm.play();
              
             // Deal with keypresses

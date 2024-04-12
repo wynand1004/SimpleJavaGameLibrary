@@ -165,6 +165,16 @@ class Sprite
         return this.height;
     }
     
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+    
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+    
     public void setBounce(boolean bounce)
     {
         this.bounce = bounce;
@@ -201,22 +211,22 @@ class Sprite
         {
             // Render image
             g.drawImage(image, x, y, null);
-            
-            // Render bounding box
-            if(this.boundingBox)
-            {
-                g.setColor(Color.RED);
-                g.drawLine(this.x, this.y, (this.x + this.width), this.y);
-                g.drawLine(this.x, this.y, (this.x), (this.y + this.height));
-                g.drawLine((this.x + this.width), this.y, (this.x + this.width), (this.y + this.height));
-                g.drawLine(this.x, (this.y + this.height), (this.x + this.width), (this.y + this.height));
-            }
         }
         else
         {
-            // Render circle (default)
+            // Render rectangle (default)
             g.setColor(color);
-            g.fillOval(x, y, width, height);
+            g.fillRect(x, y, width, height);
+        }
+        
+        // Render bounding box
+        if(this.boundingBox)
+        {
+            g.setColor(Color.RED);
+            g.drawLine(this.x, this.y, (this.x + this.width), this.y);
+            g.drawLine(this.x, this.y, (this.x), (this.y + this.height));
+            g.drawLine((this.x + this.width), this.y, (this.x + this.width), (this.y + this.height));
+            g.drawLine(this.x, (this.y + this.height), (this.x + this.width), (this.y + this.height));
         }
     }
     
