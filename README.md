@@ -47,13 +47,20 @@ Default canvas size is 1024 x 768.
 All sprites are stored in an ArrayList.
 
 ```game.getSprites()```
+```game.getBackgroundSprites()```
 
 Returns an ArrayList of Sprite objects.
 
 ```game.addSprite(Sprite s)```
 Adds a sprite to the ArrayList of game sprites
 
+```game.addBackgroundSprite(Sprite s)```
+Adds a sprite to the ArrayList of game sprites
+
+
 ## Sprite Class
+
+There are two types of Sprite objects. Background sprites, and regular sprites. Background sprites do not interact - they are simply decoration. Regular sprites do interact (register collisions).
 
 ### Create a sprite object
 
