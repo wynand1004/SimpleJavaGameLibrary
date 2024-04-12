@@ -89,6 +89,12 @@ class Sprite
         this.y = y;
     }
     
+    public void goTo(double x, double y)
+    {
+        this.x = (int)x;
+        this.y = (int)y;
+    }
+    
     public void setX(int x)
     {
         this.x = x;
@@ -205,7 +211,7 @@ class Sprite
         {
             // Render circle (default)
             g.setColor(color);
-            g.fillOval((int)x, (int)y, (int)width, (int)height);
+            g.fillOval(x, y, width, height);
         }
     }
     

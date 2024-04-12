@@ -170,8 +170,6 @@ public class SJGL extends JFrame
             
             // This avoids random slowdowns on Linux
             Toolkit.getDefaultToolkit().sync();
-            
-
         }
         
         private void render(Graphics g)
