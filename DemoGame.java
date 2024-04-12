@@ -9,11 +9,15 @@ class DemoGame
         SJGL game = new SJGL("Side Scrolling Shooter Demo by @TokyoEdtech", 1024, 768);
         game.setBackgroundColor(Color.BLACK);
         game.setFPS(30);
-                
+        
+        // Create Background Sprites
+        Sprite backgroundSprite = new Sprite(0, 0, "background_1024_768.jpg");
+        game.addBackgroundSprite(backgroundSprite);
+        
         // Create Sprites
         Sprite player = new Sprite(0, 400, "player.png");
         player.setStop(true);
-        player.setBoundingBox(true);
+        // player.setBoundingBox(true);
         game.addSprite(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
@@ -27,7 +31,7 @@ class DemoGame
             double y = (Math.random() * 768);
             Sprite enemy = new Sprite(x, y, "enemy.png");
             enemy.setDX(Math.random() * -200);
-            enemy.setBoundingBox(true);
+            // enemy.setBoundingBox(true);
             game.addSprite(enemy);
         }
         

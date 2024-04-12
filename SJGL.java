@@ -37,6 +37,9 @@ public class SJGL extends JFrame
     // Sprites
     private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
     
+    // Background Sprites
+    private ArrayList<Sprite> backgroundSprites = new ArrayList<Sprite>();
+    
     // Labels
     private ArrayList<Label> labels = new ArrayList<Label>();
         
@@ -175,6 +178,13 @@ public class SJGL extends JFrame
         {
             setBackground(backgroundColor);
             
+            // Render Background Sprites
+            // Iterate through clone of sprites to avoid concurrentModificationException
+            for(Sprite sprite: new ArrayList<Sprite>(backgroundSprites))
+            {
+                sprite.render(g);
+            }
+            
             // Render Sprites
             // Iterate through clone of sprites to avoid concurrentModificationException
             for(Sprite sprite: new ArrayList<Sprite>(sprites))
@@ -196,6 +206,11 @@ public class SJGL extends JFrame
          sprites.add(sprite);
     }
     
+    public void addBackgroundSprite(Sprite sprite)
+    {
+         backgroundSprites.add(sprite);
+    }
+    
     public void addLabel(Label label)
     {
          labels.add(label);
@@ -204,6 +219,11 @@ public class SJGL extends JFrame
     public void removeSprite(Sprite sprite)
     {
         sprites.remove(sprite);
+    }
+    
+    public void removeBackgroundSprite(Sprite sprite)
+    {
+        backgroundSprites.remove(sprite);
     }
     
     public void removeLabel(Label label)
@@ -268,6 +288,12 @@ public class SJGL extends JFrame
     {
          // Return copy to avoid concurrentModificationException
          return new ArrayList<Sprite>(sprites);
+    }
+    
+    public ArrayList<Sprite> getBackgroundSprites()
+    {
+         // Return copy to avoid concurrentModificationException
+         return new ArrayList<Sprite>(backgroundSprites);
     }
     
     public ArrayList<Label> getLabels()
