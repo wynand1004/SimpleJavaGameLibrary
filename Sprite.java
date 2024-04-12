@@ -303,4 +303,14 @@ class Sprite
     {
         this.active = active;
     }
+    
+    public void resize(int width, int height)
+    {
+        Image tempImage = this.image.getScaledInstance(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage buffered = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        buffered.getGraphics().drawImage(tempImage, 0, 0 , null);
+        this.image = buffered;
+        this.width = width;
+        this.height = height;
+    }
 }
