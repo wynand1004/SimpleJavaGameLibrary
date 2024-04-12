@@ -15,11 +15,8 @@ class DemoGame
         game.addBackgroundSprite(backgroundSprite);
         
         // Create Sprites
-        Sprite player = new Sprite(0, 400, "player.png");
-        
-        player.setStop(true);
-        // player.setBoundingBox(true);
-        game.addSprite(player);
+        // Sprite player = new Sprite(0, 400, "player.png");
+        Sprite player = new Sprite(0, 400);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(200);

@@ -330,4 +330,15 @@ class Sprite
         this.width = width;
         this.height = height;
     }
+    
+    public void scale(double ratio)
+    {
+        this.width = (int)(this.width * ratio);
+        this.height = (int)(this.height * ratio);
+        
+        if(this.image != null)
+        {
+            resize(this.width, this.height);
+        }
+    }
 }
