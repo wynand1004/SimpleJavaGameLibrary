@@ -7,15 +7,15 @@ class Sprite
 {
     // Simple Sprite Class
     // Default location and acceleration
-    private double x = 0.0;
-    private double y = 0.0;
-    private double dx = 0.0;
-    private double dy = 0.0;
+    private int x = 0;
+    private int y = 0;
+    private int dx = 0;
+    private int dy = 0;
     
     // Default sizes
-    private double width = 24.0;
-    private double height = 24.0;
-    private double size = 24.0;
+    private int width = 24;
+    private int height = 24;
+    private int size = 24;
     
     // Initial state
     private boolean bounce = false;
@@ -27,19 +27,26 @@ class Sprite
     private boolean active = true;
     
     // Image
+    private String filename;
     private BufferedImage image = null;
     
     Sprite(double x, double y)
     {
-        this.x = x;
-        this.y = y;
+        this.x = (int)x;
+        this.y = (int)y;
+        this.initialize();
     }
     
     Sprite(double x, double y, String filename)
     {
-        this.x = x;
-        this.y = y;
-        
+        this.x = (int)x;
+        this.y = (int)y;
+        this.filename = filename;
+        this.initialize();
+    }
+    
+    private void initialize()
+    {
         try
         {
             BufferedImage image = ImageIO.read(new File(filename));
@@ -78,45 +85,45 @@ class Sprite
     
     public void setX(double x)
     {
-        this.x = x;
+        this.x = (int)x;
     }
     
-    public double getX()
+    public int getX()
     {
         return this.x;
     }
     
     public void setY(double y)
     {
-        this.y = y;
+        this.y = (int)y;
     }
     
-    public double getY()
+    public int getY()
     {
         return this.y;
     }
     
-    public void setDX(double dx)
+    public void setDX(int dx)
     {
         this.dx = dx;
     }
     
-    public void setDY(double dy)
+    public void setDY(int dy)
     {
-        this.dy = dy;
+        this.dy = (int)dy;
     }
     
-    public double getDY()
+    public int getDY()
     {
         return this.dy;
     }
     
-    public double getWidth()
+    public int getWidth()
     {
         return this.width;
     }
     
-    public double getHeight()
+    public int getHeight()
     {
         return this.height;
     }
@@ -156,16 +163,16 @@ class Sprite
         if(!(image==null))
         {
             // Render image
-            g.drawImage(image, (int)x, (int)y, null);
+            g.drawImage(image, x, y, null);
             
             // Render bounding box
             if(this.boundingBox)
             {
                 g.setColor(Color.RED);
-                g.drawLine((int)this.x, (int)this.y, (int)(this.x + this.width), (int)this.y);
-                g.drawLine((int)this.x, (int)this.y, (int)(this.x), (int)(this.y + this.height));
-                g.drawLine((int)(this.x + this.width), (int)this.y, (int)(this.x + this.width), (int)(this.y + this.height));
-                g.drawLine((int)this.x, (int)(this.y + this.height), (int)(this.x + this.width), (int)(this.y + this.height));
+                g.drawLine(this.x, this.y, (this.x + this.width), this.y);
+                g.drawLine(this.x, this.y, (this.x), (this.y + this.height));
+                g.drawLine((this.x + this.width), this.y, (this.x + this.width), (this.y + this.height));
+                g.drawLine(this.x, (this.y + this.height), (this.x + this.width), (this.y + this.height));
             }
         }
         else
@@ -176,7 +183,7 @@ class Sprite
         }
     }
     
-    public void update(double CANVAS_WIDTH, double CANVAS_HEIGHT, double dt)
+    public void update(int canvasWidth, int canvasHeight, double dt)
     {
       if(!active)
       {
@@ -189,12 +196,12 @@ class Sprite
       // bounce
       if(bounce)
       {
-          if (x > CANVAS_WIDTH - this.width || x < 0) 
+          if (x > canvasWidth - this.width || x < 0) 
           {
              dx = -dx;
           }
           
-          if (y > CANVAS_HEIGHT - this.height || y < 0) 
+          if (y > canvasHeight - this.height || y < 0) 
           {
              dy = -dy;
           }
@@ -202,35 +209,35 @@ class Sprite
       
       else if(warp)
       {
-          if (this.x > CANVAS_WIDTH - this.width) 
+          if (this.x > canvasWidth - this.width) 
           {
-             this.x = 0.0;
+             this.x = 0;
           }
           
-          else if (this.y > CANVAS_HEIGHT - this.height) 
+          else if (this.y > canvasHeight - this.height) 
           {
-             this.y = 0.0;
+             this.y = 0;
           }
           
           else if (this.x < 0) 
           {
-             this.x = CANVAS_WIDTH - this.width;
+             this.x = canvasWidth - this.width;
           }
           
           else if (this.y < 0) 
           {
-             this.y = CANVAS_HEIGHT - this.height;
+             this.y = canvasHeight - this.height;
           }          
       }
       
       else if(stop)
       {
-          if (x > CANVAS_WIDTH - this.width || x < 0) 
+          if (x > canvasWidth - this.width || x < 0) 
           {
              dx = 0;
           }
           
-          if (y > CANVAS_HEIGHT - this.height || y < 0) 
+          if (y > canvasHeight - this.height || y < 0) 
           {
              dy = 0;
           }

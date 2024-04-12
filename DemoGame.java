@@ -22,7 +22,7 @@ class DemoGame
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(200);
-        missile.setBoundingBox(true);
+        // missile.setBoundingBox(true);
         game.addSprite(missile);
         
         for(int i=0;i<25;i++)
@@ -30,7 +30,7 @@ class DemoGame
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);
             Sprite enemy = new Sprite(x, y, "enemy.png");
-            enemy.setDX(Math.random() * -200);
+            enemy.setDX((int)(Math.random() * -200));
             // enemy.setBoundingBox(true);
             game.addSprite(enemy);
         }

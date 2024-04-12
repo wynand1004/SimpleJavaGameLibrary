@@ -54,7 +54,7 @@ public class SJGL extends JFrame
  
     // Attributes
     private Color backgroundColor = Color.BLACK;
-    private double gravity = 0.0;
+    private int gravity = 0;
     
     // Controls repaint and game updates
     private Timer timer;
@@ -236,7 +236,7 @@ public class SJGL extends JFrame
          this.backgroundColor = color;
     }
     
-    public void setGravity(double gravity)
+    public void setGravity(int gravity)
     {
         this.gravity = gravity;
     }
