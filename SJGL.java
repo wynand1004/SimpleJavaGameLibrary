@@ -59,7 +59,7 @@ public class SJGL extends JFrame
     // Controls repaint and game updates
     private Timer timer;
     
-    boolean isRendering = false;
+    public boolean isRendering = false;
     
     public SJGL()
     {
@@ -145,9 +145,10 @@ public class SJGL extends JFrame
                 if(!isRendering)
                 {
                     // Update sprites
-                    for(Sprite sprite: sprites)
+                    for(int i=sprites.size()-1;i>-1;i--)
                     {
                         // Add gravity
+                        Sprite sprite = sprites.get(i);
                         sprite.setDY(sprite.getDY() + gravity);
                         sprite.update(canvasWidth, canvasHeight, dt);    
                     }
@@ -166,7 +167,10 @@ public class SJGL extends JFrame
         public void paintComponent(Graphics g) {
             try
             {
-                super.paintComponent(g);  // paint parent's background
+                if(!sjgl.isRendering)
+                {
+                    super.paintComponent(g);  // paint parent's background
+                }
             }
             catch(Exception e)
             {
@@ -192,22 +196,23 @@ public class SJGL extends JFrame
             setBackground(backgroundColor);
             
             // Render Background Sprites
-            // Iterate through clone of sprites to avoid concurrentModificationException
-            for(Sprite sprite: new ArrayList<Sprite>(backgroundSprites))
+            for(int i=backgroundSprites.size()-1;i>-1;i--)
             {
-                sprite.render(g);
+                Sprite backgroundSprite = backgroundSprites.get(i);
+                backgroundSprite.render(g);
             }
             
-            // Render Sprites
-            // Iterate through clone of sprites to avoid concurrentModificationException
-            for(Sprite sprite: new ArrayList<Sprite>(sprites))
+            // Render Sprites            
+            for(int i=sprites.size()-1;i>-1;i--)
             {
+                Sprite sprite = sprites.get(i);
                 sprite.render(g);
             }
             
             // Render Text
-            for(Label label: new ArrayList<Label>(labels))
+            for(int i=labels.size()-1;i>-1;i--)
             {
+                Label label = labels.get(i);
                 label.render(g);
             }
             
@@ -219,32 +224,56 @@ public class SJGL extends JFrame
     // Public methods
     public void addSprite(Sprite sprite)
     {
-         sprites.add(sprite);
+        while(isRendering)
+        {   
+            sleep(1);
+        }
+        sprites.add(sprite);
     }
     
     public void addBackgroundSprite(Sprite sprite)
     {
-         backgroundSprites.add(sprite);
+        while(isRendering)
+        {   
+            sleep(1);
+        }
+        backgroundSprites.add(sprite);
     }
     
     public void addLabel(Label label)
     {
-         labels.add(label);
+        while(isRendering)
+        {   
+            sleep(1);
+        }
+        labels.add(label);
     }
     
     public void removeSprite(Sprite sprite)
     {
+        while(isRendering)
+        {   
+            sleep(1);
+        }
         sprites.remove(sprite);
     }
     
     public void removeBackgroundSprite(Sprite sprite)
     {
+        while(isRendering)
+        {   
+            sleep(1);
+        }
         backgroundSprites.remove(sprite);
     }
     
     public void removeLabel(Label label)
     {
-         labels.remove(label);
+        while(isRendering)
+        {   
+            sleep(1);
+        }
+        labels.remove(label);
     }
     
     public void setBackgroundColor(Color color)
@@ -327,4 +356,18 @@ public class SJGL extends JFrame
         
         this.timer.setDelay(this.updateInterval);
     }
+    
+    private void sleep(int milliseconds)
+    {
+        System.out.print("* ");
+        try
+        {
+            Thread.sleep(milliseconds);
+        }
+        catch(Exception e)
+        {
+        }
+    }
+        
+        
 }

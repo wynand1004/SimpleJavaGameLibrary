@@ -24,7 +24,7 @@ class DemoGame
         // missile.setBoundingBox(true);
         game.addSprite(missile);
         
-        for(int i=0;i<250;i++)
+        for(int i=0;i<100;i++)
         {
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);
