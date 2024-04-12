@@ -20,12 +20,14 @@ import java.util.ArrayList;
  */
 public class SJGL extends JFrame
 {
-    // Define named-constants
-    final private int CANVAS_WIDTH = 1024;
-    final private int CANVAS_HEIGHT = 768;
+    // Define window attributes
+    private int canvasWidth = 1024;
+    private int canvasHeight = 768;
     
-    private int UPDATE_INTERVAL = 20; // milliseconds
+    private int updateInterval = 20; // milliseconds
     private int fps = 50;
+    
+    private String title = "SJGL Game by @TokyoEdtech";
     
     // dt (delta time) to keep framerates consistent
     private double dt = 0.02;
@@ -53,20 +55,39 @@ public class SJGL extends JFrame
     
     // Controls repaint and game updates
     private Timer timer;
+    
+    public SJGL()
+    {
+        this.run();
+    }
+    
+    public SJGL(String title)
+    {
+        this.title = title;
+        this.run();
+    }   
+    
+    public SJGL(String title, int canvasWidth, int canvasHeight)
+    {
+        this.title = title;
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.run();
+    }
  
-    // Constructor to setup the GUI components and event handlers
-    public SJGL(String title) 
+    // Setup the GUI components and event handlers
+    public void run() 
     {
         canvas = new DrawCanvas();
         canvas.setDoubleBuffered(true);
-        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
         canvas.setFocusable(true);
         canvas.requestFocusInWindow();
         
         this.setContentPane(canvas);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        this.setTitle(title);
+        this.setTitle(this.title);
         this.setVisible(true);
         
         // Add KeyListener to canvas
@@ -110,7 +131,7 @@ public class SJGL extends JFrame
             });
  
         // Create a timer to repaint, and update sprites
-        timer = new Timer(UPDATE_INTERVAL, new ActionListener() {
+        timer = new Timer(updateInterval, new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -121,7 +142,7 @@ public class SJGL extends JFrame
                 {
                     // Add gravity
                     sprite.setDY(sprite.getDY() + gravity);
-                    sprite.update(CANVAS_WIDTH, CANVAS_HEIGHT, dt);    
+                    sprite.update(canvasWidth, canvasHeight, dt);    
                 }
             }
         });
@@ -200,6 +221,16 @@ public class SJGL extends JFrame
         this.gravity = gravity;
     }
     
+    public int getCanvasWidth()
+    {
+        return this.canvasWidth;
+    }
+    
+    public int getCanvasHeight()
+    {
+        return this.canvasHeight;
+    }
+    
     // Keyboard 
     private void registerKeyPress(int key)
     {
@@ -245,13 +276,13 @@ public class SJGL extends JFrame
          return new ArrayList<Label>(labels);
     }
     
-    // Set FPS (also updates UPDATE_INTERVAL and dt
+    // Set FPS (also updates updateInterval and dt
     public void setFPS(int fps)
     {
         this.fps = fps;
-        this.UPDATE_INTERVAL = (int)(1000.0 / fps);
-        this.dt = UPDATE_INTERVAL / 1000.0;
+        this.updateInterval = (int)(1000.0 / fps);
+        this.dt = updateInterval / 1000.0;
         
-        this.timer.setDelay(this.UPDATE_INTERVAL);
+        this.timer.setDelay(this.updateInterval);
     }
 }

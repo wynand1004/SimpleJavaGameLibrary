@@ -6,7 +6,7 @@ class DemoGame
    // Main Method
    public static void main(String[] args)
    {
-      SJGL game = new SJGL("Side Scrolling Shooter Demo");
+      SJGL game = new SJGL("Side Scrolling Shooter Demo by @TokyoEdtech", 1024, 768);
       game.setBackgroundColor(Color.BLACK);
       game.setFPS(30);
             
