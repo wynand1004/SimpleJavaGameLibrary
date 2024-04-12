@@ -30,7 +30,7 @@ class DemoGame
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);
             Sprite enemy = new Sprite(x, y, "enemy.png");
-            enemy.setDX((int)(Math.random() * -200));
+            enemy.setDX((Math.random() * -200));
             // enemy.setBoundingBox(true);
             game.addSprite(enemy);
         }
