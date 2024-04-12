@@ -15,15 +15,15 @@ class DemoGame
         game.addBackgroundSprite(backgroundSprite);
         
         // Create Sprites
-        // Sprite player = new Sprite(0, 400, "player.png");
-        Sprite player = new Sprite(0, 400);
+        Sprite player = new Sprite(0, 400, "player.png");
+        game.addSprite(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(200);
         // missile.setBoundingBox(true);
         game.addSprite(missile);
         
-        for(int i=0;i<100;i++)
+        for(int i=0;i<250;i++)
         {
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);

@@ -59,6 +59,8 @@ public class SJGL extends JFrame
     // Controls repaint and game updates
     private Timer timer;
     
+    boolean isRendering = false;
+    
     public SJGL()
     {
         this.run();
@@ -139,13 +141,16 @@ public class SJGL extends JFrame
             @Override
             public void actionPerformed(ActionEvent ae) {
                 repaint();
-        
-                // Update sprites
-                for(Sprite sprite: sprites)
+                
+                if(!isRendering)
                 {
-                    // Add gravity
-                    sprite.setDY(sprite.getDY() + gravity);
-                    sprite.update(canvasWidth, canvasHeight, dt);    
+                    // Update sprites
+                    for(Sprite sprite: sprites)
+                    {
+                        // Add gravity
+                        sprite.setDY(sprite.getDY() + gravity);
+                        sprite.update(canvasWidth, canvasHeight, dt);    
+                    }
                 }
             }
         });
@@ -155,6 +160,8 @@ public class SJGL extends JFrame
   
     // Define Inner class DrawCanvas, which is a JPanel used for custom drawing
     class DrawCanvas extends JPanel {
+        final SJGL sjgl = SJGL.this;
+        
         @Override
         public void paintComponent(Graphics g) {
             try
@@ -165,8 +172,13 @@ public class SJGL extends JFrame
             {
                 
             }
+            
             // Render game sprites
-            render(g);
+            if(!sjgl.isRendering)
+            {
+                // System.out.print(" RENDER ");
+                render(g);
+            }
             
             // This avoids random slowdowns on Linux
             Toolkit.getDefaultToolkit().sync();
@@ -174,6 +186,9 @@ public class SJGL extends JFrame
         
         private void render(Graphics g)
         {
+            // System.out.print("T");
+            sjgl.isRendering = true;
+            
             setBackground(backgroundColor);
             
             // Render Background Sprites
@@ -195,6 +210,9 @@ public class SJGL extends JFrame
             {
                 label.render(g);
             }
+            
+            sjgl.isRendering = false;
+            // System.out.print("F");
         }
     }
     
