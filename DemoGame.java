@@ -86,16 +86,6 @@ class DemoGame
             // Check for collisions
             for(Sprite sprite: game.getSprites())
             {
-                if(sprite==player)
-                {
-                    continue;
-                }
-                  
-                if(sprite==missile)
-                {
-                    continue;
-                }
-                  
                 if(missile.isCollision(sprite))
                 {
                     explosion.play();

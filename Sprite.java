@@ -294,6 +294,12 @@ class Sprite
     
     public boolean isCollision(Sprite other)
     {
+        // Do not register collision with self
+        if(this==other)
+        {
+            return false;
+        }
+        
         boolean xOverlap = (this.x <= (other.x + other.width)) && ((this.x + this.width) >= other.x);
         boolean yOverlap = (this.y <= (other.y + other.height)) && ((this.y + this.height) >= other.y);
         return xOverlap && yOverlap;
