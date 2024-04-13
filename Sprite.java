@@ -2,15 +2,18 @@ import java.awt.*;    // Using AWT's Graphics and Color
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.awt.geom.AffineTransform;
 
 class Sprite
 {
     // Simple Sprite Class
     // Default location and acceleration
-    private int x = 0;
-    private int y = 0;
-    private int dx = 0;
-    private int dy = 0;
+    private double x = 0.0;
+    private double y = 0.0;
+    private double dx = 0.0;
+    private double dy = 0.0;
+    private double heading = 0.0;
+    private double dh = 0.0;
     
     // Default sizes
     private int width = 24;
@@ -22,6 +25,7 @@ class Sprite
     private boolean warp = false;
     private boolean stop = false;
     private boolean boundingBox = false;
+    private boolean isVisible = true;
     
     private Color color = Color.BLUE;
     private boolean active = true;
@@ -35,15 +39,15 @@ class Sprite
     
     Sprite(double x, double y)
     {
-        this.x = (int)x;
-        this.y = (int)y;
+        this.x = x;
+        this.y = y;
         this.initialize();
     }
     
     Sprite(double x, double y, String filename)
     {
-        this.x = (int)x;
-        this.y = (int)y;
+        this.x = x;
+        this.y = y;
         this.filename = filename;
         this.initialize();
     }
@@ -96,8 +100,8 @@ class Sprite
     
     public void goTo(double x, double y)
     {
-        this.x = (int)x;
-        this.y = (int)y;
+        this.x = x;
+        this.y = y;
     }
     
     public void setX(int x)
@@ -107,10 +111,10 @@ class Sprite
     
     public void setX(double x)
     {
-        this.x = (int)x;
+        this.x = x;
     }
     
-    public int getX()
+    public double getX()
     {
         return this.x;
     }
@@ -122,10 +126,10 @@ class Sprite
     
     public void setY(double y)
     {
-        this.y = (int)y;
+        this.y = y;
     }
     
-    public int getY()
+    public double getY()
     {
         return this.y;
     }
@@ -137,7 +141,7 @@ class Sprite
     
     public void setDX(double dx)
     {
-        this.dx = (int)dx;
+        this.dx = dx;
     }
     
     public void setDY(int dy)
@@ -147,10 +151,37 @@ class Sprite
     
     public void setDY(double dy)
     {
-        this.dy = (int)dy;
+        this.dy = dy;
     }
     
-    public int getDY()
+    public void setHeading(int heading)
+    {
+        this.heading = heading;
+        rotate(heading);
+    }
+    
+    public void setHeading(double heading)
+    {
+        this.heading = heading;
+        rotate(heading);
+    }
+    
+    public void setDH(int dh)
+    {
+        this.dh = dh;
+    }
+    
+    public void setDH(double dh)
+    {
+        this.dh = dh;
+    }
+    
+    public double getDH()
+    {
+        return this.dh;
+    }
+    
+    public double getDY()
     {
         return this.dy;
     }
@@ -207,26 +238,33 @@ class Sprite
             return;
         }
         
-        if(!(image==null))
+        // Check if visible
+        if(this.isVisible)
         {
-            // Render image
-            g.drawImage(image, x, y, null);
-        }
-        else
-        {
-            // Render rectangle (default)
-            g.setColor(color);
-            g.fillRect(x, y, width, height);
-        }
-        
-        // Render bounding box
-        if(this.boundingBox)
-        {
-            g.setColor(Color.RED);
-            g.drawLine(this.x, this.y, (this.x + this.width), this.y);
-            g.drawLine(this.x, this.y, (this.x), (this.y + this.height));
-            g.drawLine((this.x + this.width), this.y, (this.x + this.width), (this.y + this.height));
-            g.drawLine(this.x, (this.y + this.height), (this.x + this.width), (this.y + this.height));
+            if(!(image==null))
+            {
+                // Render image
+                g.drawImage(image, (int)x, (int)y, null);
+            }
+            else
+            {
+                // Render rectangle (default)
+                g.setColor(color);
+                g.fillRect((int)x, (int)y, width, height);
+            }
+            
+            // Render bounding box
+            if(this.boundingBox)
+            {
+                int x = (int)this.x;
+                int y = (int)this.y;
+                
+                g.setColor(Color.RED);
+                g.drawLine(x, y, (x + this.width), y);
+                g.drawLine(x, y, (x), (y + this.height));
+                g.drawLine((x + this.width), y, (x + this.width), (y + this.height));
+                g.drawLine(x, (y + this.height), (x + this.width), (y + this.height));
+            }
         }
     }
     
@@ -239,6 +277,14 @@ class Sprite
       
       x += dx * dt;
       y += dy * dt;
+      heading += dh * dt;
+      
+      // System.out.println(heading);
+      
+      if(dh!=0)
+      {
+          rotate(heading);
+      }
       
       // bounce
       if(bounce)
@@ -346,5 +392,55 @@ class Sprite
         {
             resize(this.width, this.height);
         }
+    }
+    
+    public void rotate(double angle) {
+        // REF: https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java
+        // This ensures positive is counterclockwise rotation
+        angle = -angle;
+        
+        double rads = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(rads));
+        double cos = Math.abs(Math.cos(rads));
+        
+        int w = this.originalImage.getWidth();
+        int h = this.originalImage.getHeight();
+        
+        int newWidth = (int)(Math.floor(w * cos + h * sin));
+        int newHeight = (int)(Math.floor(h * cos + w * sin));
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+        AffineTransform at = new AffineTransform();
+        at.translate((newWidth - w) / 2, (newHeight - h) / 2);
+
+        int x = w / 2;
+        int y = h / 2;
+
+        at.rotate(rads, x, y);
+        
+        g2d.setTransform(at);
+        g2d.drawImage(this.originalImage, 0, 0, null);
+        Color transparent = new Color(255, 255, 255, 0);
+        g2d.setColor(transparent);
+        g2d.drawRect(0, 0, newWidth - 1, newHeight - 1);
+        g2d.dispose();
+        
+        // Update width and height and heading
+        this.width = rotated.getWidth();
+        this.height = rotated.getHeight();
+        this.heading = (int)angle;
+
+        this.image = rotated;
+    }
+
+    public void show()
+    {
+        this.isVisible = true;
+    }
+    
+    public void hide()
+    {
+        this.isVisible = false;
     }
 }

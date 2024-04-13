@@ -7,6 +7,7 @@ class Label
     private int y;
     private int size = 24;
     private Color color = Color.WHITE;
+    private boolean isVisible = true;
     
     Label(String text, int x, int y)
     {
@@ -17,9 +18,12 @@ class Label
     
     public void render(Graphics g)
     {
-        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, size)); 
-        g.setColor(this.color);
-        g.drawString(text, x, y);
+        if(this.isVisible)
+        {
+            g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, size)); 
+            g.setColor(this.color);
+            g.drawString(text, x, y);
+        }
     }
     
     public void setText(String text)
@@ -45,5 +49,15 @@ class Label
     public void setSize(int size)
     {
         this.size = size;
+    }
+    
+    public void show()
+    {
+        this.isVisible = true;
+    }
+    
+    public void hide()
+    {
+        this.isVisible = false;
     }
 }

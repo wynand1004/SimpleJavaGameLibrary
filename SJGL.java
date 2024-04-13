@@ -196,13 +196,15 @@ public class SJGL extends JFrame
             setBackground(backgroundColor);
             
             // Render Background Sprites
-            for(int i=backgroundSprites.size()-1;i>-1;i--)
+            // Render in order (background in back)
+            for(int i=0;i<backgroundSprites.size();i++)
             {
                 Sprite backgroundSprite = backgroundSprites.get(i);
                 backgroundSprite.render(g);
             }
             
-            // Render Sprites            
+            // Render Sprites           
+            // Render in reverse (player in front) 
             for(int i=sprites.size()-1;i>-1;i--)
             {
                 Sprite sprite = sprites.get(i);
@@ -210,7 +212,8 @@ public class SJGL extends JFrame
             }
             
             // Render Text
-            for(int i=labels.size()-1;i>-1;i--)
+            // Render in order
+            for(int i=0;i<labels.size();i++)
             {
                 Label label = labels.get(i);
                 label.render(g);

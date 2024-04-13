@@ -20,19 +20,18 @@ class DemoGame
         game.addSprite(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
-        missile.setDX(200);
-        // missile.setBoundingBox(true);
+        missile.setDX(300);
         game.addSprite(missile);
         
-        for(int i=0;i<100;i++)
+        for(int i=0;i<30;i++)
         {
             double x = (Math.random() * 1000) + 1024;
             double y = (Math.random() * 768);
+            
             Sprite enemy = new Sprite(x, y, "enemy.png");
-            enemy.setDX((Math.random() * -200));
-            // enemy.setBoundingBox(true);
+            enemy.setDX(-10 + (Math.random() * -200));
+            
             game.addSprite(enemy);
-            //System.out.println("Enemy #" + i + " Added");
         }
         
         // Create sounds
@@ -43,6 +42,7 @@ class DemoGame
         Label scoreLabel = new Label("Score: 0", 500, 25);
         scoreLabel.setColor(Color.GREEN);
         game.addLabel(scoreLabel);
+        
         
         int score = 0;
         
@@ -98,7 +98,7 @@ class DemoGame
                 }
                   
                 // Move missiles back if off screen
-                if(sprite.getX() < -sprite.getWidth())
+                if(sprite.getX() <= -sprite.getWidth())
                 {
                     double x = (Math.random() * 1000) + 1024;
                     double y = (Math.random() * 768);
