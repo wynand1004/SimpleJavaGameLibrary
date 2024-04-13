@@ -11,7 +11,11 @@ class Sound
     Sound(String filename)
     {
         this.filename = filename;
-        
+        initialize(filename);
+    }
+    
+    private void initialize(String filename)
+    {
         try
         {
             Clip clip = AudioSystem.getClip();
@@ -64,5 +68,11 @@ class Sound
             }
             
         }).start(); 
+    }
+    
+    public void setFilename(String filename)
+    {
+        this.filename = filename;
+        initialize(filename);
     }
 }
