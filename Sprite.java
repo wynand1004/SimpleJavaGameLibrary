@@ -27,6 +27,8 @@ class Sprite
     private boolean boundingBox = false;
     private boolean isVisible = true;
     
+    private boolean hasPhysics = true;
+    
     private Color color = Color.BLUE;
     private boolean active = true;
     
@@ -176,6 +178,16 @@ class Sprite
         this.dh = dh;
     }
     
+    public void setHasPhysics(boolean hasPhysics)
+    {
+        this.hasPhysics = hasPhysics;
+    }
+    
+    public boolean getHasPhysics()
+    {
+        return this.hasPhysics;
+    }
+    
     public double getDH()
     {
         return this.dh;
@@ -209,16 +221,22 @@ class Sprite
     public void setBounce(boolean bounce)
     {
         this.bounce = bounce;
+        this.warp = false;
+        this.stop = false;
     }
     
     public void setWarp(boolean warp)
     {
         this.warp = warp;
+        this.bounce = false;
+        this.stop = false;
     }
     
     public void setStop(boolean stop)
     {
         this.stop = stop;
+        this.bounce = false;
+        this.warp = false;
     }
     
     public void setColor(Color color)
@@ -275,73 +293,82 @@ class Sprite
          return;
       }
       
-      x += dx * dt;
-      y += dy * dt;
-      heading += dh * dt;
-      
-      // System.out.println(heading);
-      
-      if(dh!=0)
+      if(hasPhysics)
       {
-          rotate(heading);
-      }
-      
-      // bounce
-      if(bounce)
-      {
-          if (x > canvasWidth - this.width || x < 0) 
+          x += dx * dt;
+          y += dy * dt;
+          heading += dh * dt;
+          
+          // System.out.println(heading);
+          
+          if(dh!=0)
           {
-             dx = -dx;
+              rotate(heading);
           }
           
-          if (y > canvasHeight - this.height || y < 0) 
+          // bounce
+          if(bounce)
           {
-             dy = -dy;
-          }
-      }
-      
-      else if(warp)
-      {
-          if (this.x > canvasWidth - this.width) 
-          {
-             this.x = 0;
-          }
-          
-          else if (this.y > canvasHeight - this.height) 
-          {
-             this.y = 0;
+              if (x > canvasWidth - this.width || x < 0) 
+              {
+                 dx = -dx;
+              }
+              
+              if (y > canvasHeight - this.height || y < 0) 
+              {
+                 dy = -dy;
+              }
           }
           
-          else if (this.x < 0) 
+          else if(warp)
           {
-             this.x = canvasWidth - this.width;
+              if (this.x > canvasWidth - this.width) 
+              {
+                 this.x = 0;
+              }
+              
+              else if (this.y > canvasHeight - this.height) 
+              {
+                 this.y = 0;
+              }
+              
+              else if (this.x < 0) 
+              {
+                 this.x = canvasWidth - this.width;
+              }
+              
+              else if (this.y < 0) 
+              {
+                 this.y = canvasHeight - this.height;
+              }          
           }
           
-          else if (this.y < 0) 
+          else if(stop)
           {
-             this.y = canvasHeight - this.height;
-          }          
-      }
-      
-      else if(stop)
-      {
-          if (x > canvasWidth - this.width || x < 0) 
-          {
-             dx = 0;
+              if (x > canvasWidth - this.width || x < 0) 
+              {
+                 dx = 0;
+              }
+              
+              if (y > canvasHeight - this.height || y < 0) 
+              {
+                 dy = 0;
+              }
+              
           }
-          
-          if (y > canvasHeight - this.height || y < 0) 
-          {
-             dy = 0;
-          }
-          
-      }
+        }
     }
     
     public boolean isCollision(Sprite other)
     {
         // Do not register collision with self
         if(this==other)
+        {
+            return false;
+        }
+        
+        // Return false if it does not havePhysics
+        if(!hasPhysics)
         {
             return false;
         }

@@ -9,9 +9,11 @@ class DemoGame
         SJGL game = new SJGL("Side Scrolling Shooter Demo by @TokyoEdtech", 1024, 768);
         game.setBackgroundColor(Color.BLACK);
         game.setFPS(30);
+        game.setGravity(0);
         
         // Create Background Sprites
         Sprite backgroundSprite = new Sprite(0, 0, "background_1024_768.jpg");
+        backgroundSprite.setHasPhysics(false);
         game.addBackgroundSprite(backgroundSprite);
         
         // Create Sprites
