@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 class Label
 {
@@ -9,6 +10,8 @@ class Label
     private Color color = Color.WHITE;
     private boolean isVisible = true;
     
+    private double rotation = 0.0;
+    
     Label(String text, int x, int y)
     {
         this.text = text;
@@ -18,11 +21,24 @@ class Label
     
     public void render(Graphics g)
     {
+        Font font = new Font(g.getFont().getFontName(), Font.PLAIN, size);
+        g.setFont(font);
+        g.setColor(this.color);
+        
         if(this.isVisible)
         {
-            g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, size)); 
-            g.setColor(this.color);
-            g.drawString(text, x, y);
+            if(rotation != 0)
+            {   
+                AffineTransform affineTransform = new AffineTransform();
+                affineTransform.rotate(Math.toRadians(this.rotation), 0, 0);
+                Font rotatedFont = font.deriveFont(affineTransform);
+                g.setFont(rotatedFont);
+                g.drawString(text, x, y);
+            }
+            else
+            {
+                g.drawString(text, x, y);
+            }
         }
     }
     
@@ -59,5 +75,15 @@ class Label
     public void hide()
     {
         this.isVisible = false;
+    }
+    
+    public void setRotation(int rotation)
+    {
+        this.rotation = -rotation;
+    }
+    
+    public void setRotation(double rotation)
+    {
+        this.rotation = -(int)rotation;
     }
 }
