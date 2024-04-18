@@ -309,37 +309,52 @@ class Sprite
           // bounce
           if(bounce)
           {
-              if (x > canvasWidth - this.width || x < 0) 
+              if (x > canvasWidth - this.width) 
               {
-                 dx = -dx;
+                  x = canvasWidth - this.width;  
+                  dx = -dx;
               }
               
-              if (y > canvasHeight - this.height || y < 0) 
+              else if (x < 0)
               {
-                 dy = -dy;
+                  x = 0;  
+                  dx = -dx;
               }
+              
+              if (y > canvasHeight - this.height) 
+              {
+                  y = canvasHeight - this.height;  
+                  dy = -dy;
+              }
+              
+              else if (y < 0)
+              {
+                  y = 0;  
+                  dy = -dy;
+              }
+              
           }
           
           else if(warp)
           {
-              if (this.x > canvasWidth - this.width) 
+              if (this.x > canvasWidth) 
               {
-                 this.x = 0;
+                 this.x = -this.width;
               }
               
-              else if (this.y > canvasHeight - this.height) 
+              else if (this.y > canvasHeight) 
               {
-                 this.y = 0;
+                 this.y = -this.height;
               }
               
-              else if (this.x < 0) 
+              else if (this.x < -this.width) 
               {
-                 this.x = canvasWidth - this.width;
+                 this.x = canvasWidth;
               }
               
-              else if (this.y < 0) 
+              else if (this.y < -this.height) 
               {
-                 this.y = canvasHeight - this.height;
+                 this.y = canvasHeight;
               }          
           }
           
