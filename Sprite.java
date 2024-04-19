@@ -43,7 +43,7 @@ class Sprite
     {
         this.x = x;
         this.y = y;
-        this.initialize();
+        // this.initialize();
     }
     
     Sprite(double x, double y, String filename)
@@ -249,7 +249,7 @@ class Sprite
         this.boundingBox = boundingBox;
     }
     
-    public void render(Graphics g)
+    public void render(Graphics g, Camera camera)
     {
         if(!active)
         {
@@ -259,29 +259,41 @@ class Sprite
         // Check if visible
         if(this.isVisible)
         {
+            int renderX = (int)this.x;
+            int renderY = (int)this.y;
+            
+            // If no camera, create one
+            // This allows background sprites to not move with the camera
+            if(camera == null)
+            {
+                camera = new Camera();
+            }
+            else
+            {
+                renderX = (int)x - camera.getX() + 1024 / 2;
+                renderY = (int)y - camera.getY() + 768 / 2;
+            }
+            
             if(!(image==null))
             {
                 // Render image
-                g.drawImage(image, (int)x, (int)y, null);
+                g.drawImage(image, renderX , renderY, null);
             }
             else
             {
                 // Render rectangle (default)
                 g.setColor(color);
-                g.fillRect((int)x, (int)y, width, height);
+                g.fillRect(renderX, renderY, width, height);
             }
             
             // Render bounding box
             if(this.boundingBox)
             {
-                int x = (int)this.x;
-                int y = (int)this.y;
-                
                 g.setColor(Color.RED);
-                g.drawLine(x, y, (x + this.width), y);
-                g.drawLine(x, y, (x), (y + this.height));
-                g.drawLine((x + this.width), y, (x + this.width), (y + this.height));
-                g.drawLine(x, (y + this.height), (x + this.width), (y + this.height));
+                g.drawLine(renderX, renderY, (renderX + this.width), renderY);
+                g.drawLine(renderX, renderY, renderX, (renderY + this.height));
+                g.drawLine((renderX + this.width), renderY, (renderX + this.width), (renderY + this.height));
+                g.drawLine(renderX, (renderY + this.height), (renderX + this.width), (renderY + this.height));
             }
         }
     }

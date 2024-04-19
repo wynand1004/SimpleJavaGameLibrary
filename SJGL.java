@@ -51,6 +51,9 @@ public class SJGL extends JFrame
     
     private int mouseX = 0;
     private int mouseY = 0;
+    
+    // Camera
+    private Camera camera = new Camera();
  
     // Attributes
     private Color backgroundColor = Color.BLACK;
@@ -59,6 +62,7 @@ public class SJGL extends JFrame
     // Controls repaint and game updates
     private Timer timer;
     
+    // Used to prevent updates while rendering
     public boolean isRendering = false;
     
     public SJGL()
@@ -153,6 +157,8 @@ public class SJGL extends JFrame
                         sprite.update(canvasWidth, canvasHeight, dt);    
                     }
                 }
+                
+                camera.update();
             }
         });
         
@@ -197,10 +203,11 @@ public class SJGL extends JFrame
             
             // Render Background Sprites
             // Render in order (background in back)
+            // Background sprites do not follow the camera
             for(int i=0;i<backgroundSprites.size();i++)
             {
                 Sprite backgroundSprite = backgroundSprites.get(i);
-                backgroundSprite.render(g);
+                backgroundSprite.render(g, null);
             }
             
             // Render Sprites           
@@ -208,7 +215,7 @@ public class SJGL extends JFrame
             for(int i=sprites.size()-1;i>-1;i--)
             {
                 Sprite sprite = sprites.get(i);
-                sprite.render(g);
+                sprite.render(g, camera);
             }
             
             // Render Text
@@ -289,6 +296,16 @@ public class SJGL extends JFrame
         this.gravity = gravity;
     }
     
+    public void setCamera(Camera camera)
+    {
+        this.camera = camera;
+    }
+    
+    public void setCameraTarget(Sprite target)
+    {
+        this.camera.setTarget(target);
+    }
+    
     public int getCanvasWidth()
     {
         return this.canvasWidth;
@@ -329,6 +346,11 @@ public class SJGL extends JFrame
     public int getMouseY()
     {
         return mouseY;
+    }
+    
+    public Camera getCamera()
+    {
+        return camera;
     }
     
     // Sprites ArrayList

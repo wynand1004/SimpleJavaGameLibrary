@@ -20,6 +20,7 @@ class DemoGame
         Sprite player = new Sprite(0, 400, "player.png");
         player.setStop(true);
         game.addSprite(player);
+        // game.setCameraTarget(player);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(300);
@@ -32,6 +33,7 @@ class DemoGame
             
             Sprite enemy = new Sprite(x, y, "enemy.png");
             enemy.setDX(-10 + (Math.random() * -200));
+            enemy.setBoundingBox(true);
             
             game.addSprite(enemy);
         }
