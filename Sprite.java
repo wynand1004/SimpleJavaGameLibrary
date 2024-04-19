@@ -6,6 +6,8 @@ import java.awt.geom.AffineTransform;
 
 class Sprite
 {
+    enum BorderAction {NONE, BOUNCE, STOP, WARP};
+    
     // Simple Sprite Class
     // Default location and acceleration
     private double x = 0.0;
@@ -21,11 +23,10 @@ class Sprite
     private int size = 24;
     
     // Initial state
-    private boolean bounce = false;
-    private boolean warp = false;
-    private boolean stop = false;
     private boolean boundingBox = false;
     private boolean isVisible = true;
+
+    private BorderAction borderAction = BorderAction.NONE;
     
     private boolean hasPhysics = true;
     
@@ -218,25 +219,9 @@ class Sprite
         this.width = width;
     }
     
-    public void setBounce(boolean bounce)
+    public void setBorderAction(BorderAction borderAction)
     {
-        this.bounce = bounce;
-        this.warp = false;
-        this.stop = false;
-    }
-    
-    public void setWarp(boolean warp)
-    {
-        this.warp = warp;
-        this.bounce = false;
-        this.stop = false;
-    }
-    
-    public void setStop(boolean stop)
-    {
-        this.stop = stop;
-        this.bounce = false;
-        this.warp = false;
+        this.borderAction = borderAction;
     }
     
     public void setColor(Color color)
@@ -314,7 +299,7 @@ class Sprite
           }
           
           // bounce
-          if(bounce)
+          if(this.borderAction == BorderAction.BOUNCE)
           {
               if (x > canvasWidth - this.width) 
               {
@@ -342,7 +327,7 @@ class Sprite
               
           }
           
-          else if(warp)
+          else if(this.borderAction == BorderAction.WARP)
           {
               if (this.x > canvasWidth) 
               {
@@ -365,7 +350,7 @@ class Sprite
               }          
           }
           
-          else if(stop)
+          else if(this.borderAction == BorderAction.STOP)
           {
               if (x > canvasWidth - this.width || x < 0) 
               {

@@ -18,7 +18,7 @@ class DemoGame
         
         // Create Sprites
         Sprite player = new Sprite(0, 400, "player.png");
-        player.setStop(true);
+        player.setBorderAction(Sprite.BorderAction.STOP);
         game.addSprite(player);
         // game.setCameraTarget(player);
         
@@ -33,7 +33,7 @@ class DemoGame
             
             Sprite enemy = new Sprite(x, y, "enemy.png");
             enemy.setDX(-10 + (Math.random() * -200));
-            enemy.setBoundingBox(true);
+            // enemy.setBoundingBox(true);
             
             game.addSprite(enemy);
         }
