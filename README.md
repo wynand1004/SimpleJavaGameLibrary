@@ -121,4 +121,11 @@ Label labelName = new Label(String text, int x, int y);
 
 Ex: ```Label scoreLabel = new Label("Score: 0", 480, 100);```
 
+### Camera Class
+game.setCameraTarget(Sprite s)
+
+The camera will follow the target sprite which will be rendered in the center of the screen. 
+Background sprites not affected by the camera.
+Labels not affected by the camera.
+
 
