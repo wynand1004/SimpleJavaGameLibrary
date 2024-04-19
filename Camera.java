@@ -23,10 +23,8 @@ class Camera
         this.y = y;
     }
     
-    Camera(int x, int y, Sprite target)
+    Camera(Sprite target)
     {
-        this.x = x;
-        this.y = y;
         this.target = target;
     }
     
@@ -52,12 +50,10 @@ class Camera
     
     public void update()
     {
-        // If there is a target, set x and y to target x and y
-        if(target!=null)
-        {
-            this.x = (int)target.getX();
-            this.y = (int)target.getY();
-        }
+
+        // Set camera x,y to target x,y
+        this.x = (int)target.getX();
+        this.y = (int)target.getY();
         
         // Offset is used for shaking and other effects
         this.xOffset += this.dx;

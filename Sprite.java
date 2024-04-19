@@ -249,7 +249,7 @@ class Sprite
         this.boundingBox = boundingBox;
     }
     
-    public void render(Graphics g, Camera camera)
+    public void render(Graphics g, Camera camera, int canvasWidth, int canvasHeight)
     {
         if(!active)
         {
@@ -262,16 +262,11 @@ class Sprite
             int renderX = (int)this.x;
             int renderY = (int)this.y;
             
-            // If no camera, create one
-            // This allows background sprites to not move with the camera
-            if(camera == null)
-            {
-                camera = new Camera();
-            }
-            else
-            {
-                renderX = (int)x - camera.getX() + 1024 / 2;
-                renderY = (int)y - camera.getY() + 768 / 2;
+            // If there is a camera, add camera offset
+            if(camera != null)
+            {  
+                renderX = renderX - camera.getX() + (canvasWidth / 2);
+                renderY = renderY - camera.getY() + (canvasHeight / 2);
             }
             
             if(!(image==null))

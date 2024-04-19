@@ -53,7 +53,7 @@ public class SJGL extends JFrame
     private int mouseY = 0;
     
     // Camera
-    private Camera camera = new Camera();
+    private Camera camera;;
  
     // Attributes
     private Color backgroundColor = Color.BLACK;
@@ -158,7 +158,10 @@ public class SJGL extends JFrame
                     }
                 }
                 
-                camera.update();
+                if(camera != null)
+                {
+                    camera.update();
+                }
             }
         });
         
@@ -207,7 +210,7 @@ public class SJGL extends JFrame
             for(int i=0;i<backgroundSprites.size();i++)
             {
                 Sprite backgroundSprite = backgroundSprites.get(i);
-                backgroundSprite.render(g, null);
+                backgroundSprite.render(g, null, canvasWidth, canvasHeight);
             }
             
             // Render Sprites           
@@ -215,7 +218,7 @@ public class SJGL extends JFrame
             for(int i=sprites.size()-1;i>-1;i--)
             {
                 Sprite sprite = sprites.get(i);
-                sprite.render(g, camera);
+                sprite.render(g, camera, canvasWidth, canvasHeight);
             }
             
             // Render Text
@@ -303,7 +306,14 @@ public class SJGL extends JFrame
     
     public void setCameraTarget(Sprite target)
     {
-        this.camera.setTarget(target);
+        if(this.camera == null)
+        {
+            this.camera = new Camera(target);
+        }
+        else
+        {
+            this.camera.setTarget(target);
+        }
     }
     
     public int getCanvasWidth()
