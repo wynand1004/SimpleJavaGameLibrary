@@ -47,7 +47,6 @@ class DemoGame
         scoreLabel.setColor(Color.GREEN);
         game.addLabel(scoreLabel);
         
-        
         int score = 0;
         
         // Main Game Loop

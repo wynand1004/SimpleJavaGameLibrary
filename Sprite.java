@@ -189,9 +189,9 @@ class Sprite
         return this.hasPhysics;
     }
     
-    public double getDH()
+    public double getDX()
     {
-        return this.dh;
+        return this.dx;
     }
     
     public double getDY()
@@ -252,6 +252,18 @@ class Sprite
             {  
                 renderX = renderX - camera.getX() + (canvasWidth / 2);
                 renderY = renderY - camera.getY() + (canvasHeight / 2);
+            }
+            
+            // Check if coordinates are on the visible screen
+            // If not, do not render
+            if(renderX < -this.width || renderX > canvasWidth)
+            {
+                return;
+            }
+            
+            if(renderY < -this.height || renderY > canvasHeight)
+            {
+                return;
             }
             
             if(!(image==null))

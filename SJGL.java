@@ -326,6 +326,11 @@ public class SJGL extends JFrame
         return this.canvasHeight;
     }
     
+    public double getDT()
+    {
+        return this.dt;
+    }
+    
     // Keyboard 
     private void registerKeyPress(int key)
     {
