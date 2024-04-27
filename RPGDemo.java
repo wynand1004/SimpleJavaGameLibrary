@@ -68,6 +68,11 @@ class RPGDemo
                     // Deal with collisions
                     player.setX(player.getX() - player.getDX() * game.getDT());
                     player.setY(player.getY() - player.getDY() * game.getDT());
+                    
+                    player.setDX(0);
+                    player.setDY(0);
+                    
+                    game.getCamera().shake(0, 20);
                 }
             }
              

@@ -48,19 +48,52 @@ class Camera
         return this.target;
     }
     
+    public void shake()
+    {
+        shake(30, 30);
+    }
+    
+    public void shake(int strength)
+    {
+        shake(strength, strength);
+    }
+    
+    public void shake(int strengthX, int strengthY)
+    {
+        if(Math.abs(this.dx) < 2 && Math.abs(this.dy) < 2)
+        {
+            this.dx = strengthX;
+            this.dy = strengthY;
+        }
+    }
+    
     public void update()
     {
-
-        // Set camera x,y to target x,y
-        this.x = (int)target.getX();
-        this.y = (int)target.getY();
+        this.x += dx;
+        this.y += dy;
         
-        // Offset is used for shaking and other effects
-        this.xOffset += this.dx;
-        this.yOffset += this.dy;
+        // Reduce dx and dy gradually
+        this.dx *= -0.9;
+        this.dy *= -0.9;
         
-        this.x += xOffset;
-        this.y += yOffset;
+        // Reset offset
+        if(Math.abs(this.dx) < 2)
+        {
+            this.dx = 0.0;            
+        }
+        
+        if(Math.abs(this.dy) < 2)
+        {
+            this.dy = 0.0;
+        }
+        
+        if(Math.abs(this.dx) < 2 && Math.abs(this.dy) < 2)
+        {
+            this.x = (int)target.getX();
+            this.y = (int)target.getY();
+        }
+        
+        // System.out.println(this.dx + " " + this.dy);
         
     }    
 }
