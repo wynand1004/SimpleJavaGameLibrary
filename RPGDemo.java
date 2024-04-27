@@ -146,7 +146,7 @@ class RPGDemo
                 // Wall
                 if(character.equals("W"))
                 {
-                    tile.setColor(Color.BLACK);
+                    // tile.setColor(Color.BLACK);
                     tile.setImage("wall.png");
                     tile.resize(tileWidth, tileHeight);
                 }

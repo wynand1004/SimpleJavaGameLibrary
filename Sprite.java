@@ -3,6 +3,7 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.geom.AffineTransform;
+import java.util.HashMap;
 
 class Sprite
 {
@@ -40,6 +41,9 @@ class Sprite
     // Original Image (used for resizing / rotating)
     private BufferedImage originalImage = null;
     
+    // Images For Sprites that are reused
+    private static HashMap<String, BufferedImage> imageMap = new HashMap<>();    
+    
     Sprite(double x, double y)
     {
         this.x = x;
@@ -59,16 +63,28 @@ class Sprite
     {
         try
         {
-            BufferedImage image = ImageIO.read(new File(filename));
-            this.image = image;
-            this.originalImage = image;
+            // Check if image in imageMap
+            if(imageMap.containsKey(filename))
+            {
+                this.image = imageMap.get(filename);
+                this.originalImage = imageMap.get(filename);
+                // System.out.print("i ");
+            }
             
-            this.width = image.getWidth();
-            this.height = image.getHeight();
-            
-            this.size = (this.width + this.height) / 2;
-            
-            // System.out.println(this.width + " x " + this.height);
+            else
+            {
+                BufferedImage image = ImageIO.read(new File(filename));
+                this.image = image;
+                this.originalImage = image;
+                
+                this.width = image.getWidth();
+                this.height = image.getHeight();
+                
+                this.size = (this.width + this.height) / 2;
+                
+                // System.out.println(this.width + " x " + this.height);
+                imageMap.put(filename, image);
+            }
         }
         catch(Exception e)
         {
@@ -79,16 +95,28 @@ class Sprite
     {
         try
         {
-            BufferedImage image = ImageIO.read(new File(filename));
-            this.image = image;
-            this.originalImage = image;
+            // Check if image in imageMap
+            if(imageMap.containsKey(filename))
+            {
+                this.image = imageMap.get(filename);
+                this.originalImage = imageMap.get(filename);
+                // System.out.print("i ");
+            }
             
-            this.width = image.getWidth();
-            this.height = image.getHeight();
-            
-            this.size = (this.width + this.height) / 2;
-            
-            // System.out.println(this.width + " x " + this.height);
+            else
+            {
+                BufferedImage image = ImageIO.read(new File(filename));
+                this.image = image;
+                this.originalImage = image;
+                
+                this.width = image.getWidth();
+                this.height = image.getHeight();
+                
+                this.size = (this.width + this.height) / 2;
+                
+                // System.out.println(this.width + " x " + this.height);
+                imageMap.put(filename, image);
+            }
         }
         catch(Exception e)
         {
