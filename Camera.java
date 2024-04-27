@@ -77,17 +77,17 @@ class Camera
         this.dy *= -0.9;
         
         // Reset offset
-        if(Math.abs(this.dx) < 2)
+        if(Math.abs(this.dx) < 1)
         {
             this.dx = 0.0;            
         }
         
-        if(Math.abs(this.dy) < 2)
+        if(Math.abs(this.dy) < 1)
         {
             this.dy = 0.0;
         }
         
-        if(Math.abs(this.dx) < 2 && Math.abs(this.dy) < 2)
+        if(Math.abs(this.dx) < 1 && Math.abs(this.dy) < 1)
         {
             this.x = (int)target.getX();
             this.y = (int)target.getY();

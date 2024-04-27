@@ -20,16 +20,20 @@ class RPGDemo
         player.setHeight(32);
         game.addSprite(player);
         
-        game.setCameraTarget(player);
-        
-        createMap(game, 32, 32, player);
+
         
         // Create sounds
         // Sound explosion = new Sound("sound.wav");
         
         // Create labels
-        Label labelTitle = new Label("RPG DEMO", 500, 25);
+        Label labelTitle = new Label("Loading Game...", 500, 25);
         game.addLabel(labelTitle);
+        
+        game.setCameraTarget(player);
+        
+        createMap(game, 32, 32, player);
+        
+        labelTitle.setText("RPG Demo");
                 
         // Main Game Loop
         while(true)
@@ -117,6 +121,7 @@ class RPGDemo
         
         for(int i=0;i<map.length();i++)
         {
+            // System.out.print(i + " ");
             character = map.substring(i, i+1);
             
             // Increment world x
@@ -125,6 +130,7 @@ class RPGDemo
             if(character.equals(" "))
             {
                 // Do nothing
+                continue;
             }
             
             // At end of map row, go to 0, y
@@ -146,6 +152,7 @@ class RPGDemo
                 Sprite tile = new Sprite(x, y);                
                 tile.setWidth(tileWidth);
                 tile.setHeight(tileHeight);
+                tile.hide();
                 
                 // Other game objects
                 // Wall
@@ -156,7 +163,7 @@ class RPGDemo
                     tile.resize(tileWidth, tileHeight);
                 }
                 
-                if(character.equals("T"))
+                else if(character.equals("T"))
                 {
                     tile.setColor(Color.YELLOW);
                 }
@@ -164,6 +171,12 @@ class RPGDemo
                 // Add to game
                 game.addSprite(tile);
             }
+        }
+        
+        // Show tiles
+        for(Sprite sprite: game.getSprites())
+        {
+            sprite.show();
         }
     }
 }

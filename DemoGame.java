@@ -20,7 +20,7 @@ class DemoGame
         Sprite player = new Sprite(0, 400, "player.png");
         player.setBorderAction(Sprite.BorderAction.STOP);
         game.addSprite(player);
-        // game.setCameraTarget(player);
+        game.setCameraTarget(new Sprite(512, 384));
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(300);
@@ -91,6 +91,8 @@ class DemoGame
             {
                 if(missile.isCollision(sprite))
                 {
+                    game.getCamera().shake(3);
+                    
                     explosion.play();
                     game.removeSprite(sprite);
                         

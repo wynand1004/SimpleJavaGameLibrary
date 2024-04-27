@@ -68,6 +68,11 @@ class Sprite
             {
                 this.image = imageMap.get(filename);
                 this.originalImage = imageMap.get(filename);
+                
+                this.width = this.image.getWidth();
+                this.height = this.image.getHeight();
+                
+                this.size = (this.width + this.height) / 2;
                 // System.out.print("i ");
             }
             
@@ -100,7 +105,13 @@ class Sprite
             {
                 this.image = imageMap.get(filename);
                 this.originalImage = imageMap.get(filename);
-                // System.out.print("i ");
+                
+                this.width = this.image.getWidth();
+                this.height = this.image.getHeight();
+                
+                this.size = (this.width + this.height) / 2;
+                
+                // System.out.print(imageMap.size() + " ");
             }
             
             else
