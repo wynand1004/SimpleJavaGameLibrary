@@ -19,8 +19,7 @@ class Camera
     
     Camera(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        target = new Sprite(x, y);
     }
     
     Camera(Sprite target)

@@ -20,7 +20,7 @@ class DemoGame
         Sprite player = new Sprite(0, 400, "player.png");
         player.setBorderAction(Sprite.BorderAction.STOP);
         game.addSprite(player);
-        game.setCameraTarget(new Sprite(512, 384));
+        game.setCameraTarget(512, 384);
         
         Sprite missile = new Sprite(12000, 400, "missile.png");
         missile.setDX(300);
