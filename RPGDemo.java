@@ -98,20 +98,20 @@ class RPGDemo
         map += "W        WWWWWWWWWW            W              W                   W\n";
         map += "W        W                     WWWWWWWWWWWWWWWW                   W\n";
         map += "W        W                                                        W\n";
-        map += "W        W    P  T                                                W\n";
+        map += "W   E    W    P  T                                               TW\n";
         map += "W        W                                                        W\n";
         map += "W        W                     WWWWWWWWWWWWWWWW                   W\n";
         map += "W        WWWWWWWWWW            W              W                   W\n";
         map += "W                              W              W                   W\n";
-        map += "W                              W              WWWWWWWWWWWWWWWWWWWWW\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "W                              W\n";
-        map += "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n";
+        map += "W                              W    WWWWWWW   WWWWWWWW     WWWWWWWW\n";
+        map += "W                              W    W  T  W          W     W       \n";
+        map += "W                              W    W     W          W     W       \n";
+        map += "W                              W    W     W          W     W       \n";
+        map += "W                              W    W     WWWWWWWWWWWW     W       \n";
+        map += "W                              W    W                      W       \n";
+        map += "W                              W    W                      W       \n";
+        map += "W                              W    W                      W       \n";
+        map += "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW    WWWWWWWWWWWWWWWWWWWWWWWW       \n";
         
         // Iterate through map
         // World x and y
@@ -166,6 +166,11 @@ class RPGDemo
                 else if(character.equals("T"))
                 {
                     tile.setColor(Color.YELLOW);
+                }
+                
+                else if(character.equals("E"))
+                {
+                    tile.setColor(Color.BLACK);
                 }
                 
                 // Add to game
