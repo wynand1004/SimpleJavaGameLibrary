@@ -28,7 +28,7 @@ class DemoGame
         
         for(int i=0;i<30;i++)
         {
-            double x = (Math.random() * 1000) + 1024;
+            double x = (Math.random() * 5000) + 1024;
             double y = (Math.random() * 768);
             
             Sprite enemy = new Sprite(x, y, "enemy.png");

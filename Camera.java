@@ -60,7 +60,7 @@ class Camera
     
     public void shake(int strengthX, int strengthY)
     {
-        if(Math.abs(this.dx) < 2 && Math.abs(this.dy) < 2)
+        if(Math.abs(this.dx) < 1 && Math.abs(this.dy) < 1)
         {
             this.dx = strengthX;
             this.dy = strengthY;
