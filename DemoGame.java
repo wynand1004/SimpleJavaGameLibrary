@@ -91,7 +91,7 @@ class DemoGame
             {
                 if(missile.isCollision(sprite))
                 {
-                    game.getCamera().shake(3);
+                    game.getCamera().shake(5);
                     
                     explosion.play();
                     game.removeSprite(sprite);

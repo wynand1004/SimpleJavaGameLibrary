@@ -316,6 +316,18 @@ public class SJGL extends JFrame
         }
     }
     
+    public void setCameraTarget(int x, int y)
+    {
+        if(this.camera == null)
+        {
+            this.camera = new Camera(new Sprite(x, y));
+        }
+        else
+        {
+            this.camera.setTarget(x, y);
+        }
+    }
+    
     public int getCanvasWidth()
     {
         return this.canvasWidth;

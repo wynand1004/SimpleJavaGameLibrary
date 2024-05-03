@@ -11,7 +11,7 @@ class Camera
     private double dy;
     
     // Target sprite to follow (ex. Player)
-    private Sprite target = new Sprite(0, 0);
+    private Sprite target;
     
     Camera()
     {
@@ -30,6 +30,12 @@ class Camera
     public void setTarget(Sprite target)
     {
         this.target = target;
+    }
+    
+    public void setTarget(int x, int y)
+    {
+        this.target.setX(x);
+        this.target.setY(y);
     }
     
     public int getX()
@@ -68,8 +74,8 @@ class Camera
     
     public void update()
     {
-        this.x += dx;
-        this.y += dy;
+        this.x = (int)(this.target.getX() + dx);
+        this.y = (int)(this.target.getY() + dy);
         
         // Reduce dx and dy gradually
         this.dx *= -0.9;
