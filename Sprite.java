@@ -18,6 +18,8 @@ class Sprite
     private double heading = 0.0;
     private double dh = 0.0;
     
+    private String type = "";
+    
     // Default sizes
     private int width = 24;
     private int height = 24;
@@ -50,6 +52,7 @@ class Sprite
         this.y = y;
         // this.initialize();
     }
+
     
     Sprite(double x, double y, String filename)
     {
@@ -174,6 +177,16 @@ class Sprite
     public double getY()
     {
         return this.y;
+    }
+    
+    public String getType()
+    {
+        return this.type;
+    }
+    
+    public void setType(String type)
+    {
+        this.type = type;
     }
     
     public void setDX(int dx)

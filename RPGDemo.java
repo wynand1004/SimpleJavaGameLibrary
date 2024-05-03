@@ -20,20 +20,23 @@ class RPGDemo
         player.setHeight(32);
         game.addSprite(player);
         
-
-        
         // Create sounds
         // Sound explosion = new Sound("sound.wav");
         
         // Create labels
-        Label labelTitle = new Label("Loading Game...", 500, 25);
+        Label labelTitle = new Label("Loading Game...", 484, 25);
         game.addLabel(labelTitle);
+        
+        Label labelGold = new Label("Gold: 0", 484, 50);
+        game.addLabel(labelGold);
         
         game.setCameraTarget(player);
         
         createMap(game, 32, 32, player);
         
         labelTitle.setText("RPG Demo");
+        
+        int gold = 0;
                 
         // Main Game Loop
         while(true)
@@ -69,14 +72,26 @@ class RPGDemo
             {
                 if(player.isCollision(sprite))
                 {
-                    // Deal with collisions
-                    player.setX(player.getX() - player.getDX() * game.getDT());
-                    player.setY(player.getY() - player.getDY() * game.getDT());
+                    String type = sprite.getType();
                     
-                    player.setDX(0);
-                    player.setDY(0);
+                    // Treasure
+                    if(type.equals("treasure"))
+                    {
+                        game.removeSprite(sprite);
+                        gold += 10;
+                        labelGold.setText("Treasure: " + gold);
+                    }
+                    else
+                    {
+                        // Deal with collisions
+                        player.setX(player.getX() - player.getDX() * game.getDT());
+                        player.setY(player.getY() - player.getDY() * game.getDT());
                     
-                    game.getCamera().shake(0, 20);
+                        player.setDX(0);
+                        player.setDY(0);
+                        
+                        game.getCamera().shake(0, 20);
+                    }
                 }
             }
              
@@ -161,16 +176,19 @@ class RPGDemo
                     // tile.setColor(Color.BLACK);
                     tile.setImage("wall.png");
                     tile.resize(tileWidth, tileHeight);
+                    tile.setType("wall");
                 }
                 
                 else if(character.equals("T"))
                 {
                     tile.setColor(Color.YELLOW);
+                    tile.setType("treasure");
                 }
                 
                 else if(character.equals("E"))
                 {
                     tile.setColor(Color.BLACK);
+                    tile.setType("enemy");
                 }
                 
                 // Add to game
