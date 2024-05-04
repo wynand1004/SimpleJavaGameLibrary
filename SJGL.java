@@ -67,16 +67,32 @@ public class SJGL extends JFrame
     // Used to prevent updates while rendering
     public boolean isRendering = false;
     
+    
+    /** 
+    * Class constructor.
+    */
     public SJGL()
     {
         this.run();
     }
-    
+
+    /** 
+    * Class constructor specifying the tile displayed in the window.
+    * Default canvas size is 1024 x 768
+    * @param title the title to be displayed
+    */
     public SJGL(String title)
     {
         this.title = title;
         this.run();
     }   
+
+    /** 
+    * Class constructor specifying the tile displayed in the window and canvas width and height.
+    * @param title the title to be displayed
+    * @param canvasWidth width of the camvas in pixels
+    * @param canvasHeight height of the canvas in pixels
+    */
     
     public SJGL(String title, int canvasWidth, int canvasHeight)
     {
@@ -237,6 +253,12 @@ public class SJGL extends JFrame
     }
     
     // Public methods
+
+    /** 
+    * Add a sprite to ArrayList sprites.
+    * @param sprite the sprite to be added
+    * @see Sprite
+    */
     public void addSprite(Sprite sprite)
     {
         while(isRendering)
@@ -245,7 +267,12 @@ public class SJGL extends JFrame
         }
         sprites.add(sprite);
     }
-    
+
+    /** 
+    * Add a background sprite to ArrayList backgroundSprites.
+    * @param sprite the sprite to be added
+    * @see Sprite
+    */
     public void addBackgroundSprite(Sprite sprite)
     {
         while(isRendering)
@@ -254,7 +281,12 @@ public class SJGL extends JFrame
         }
         backgroundSprites.add(sprite);
     }
-    
+
+    /** 
+    * Add a label to ArrayList labels.
+    * @param label the label to be added
+    * @see Label
+    */
     public void addLabel(Label label)
     {
         while(isRendering)
@@ -264,6 +296,12 @@ public class SJGL extends JFrame
         labels.add(label);
     }
     
+
+    /** 
+    * Remove a sprite from ArrayList sprites.
+    * @param sprite the sprite to be removed
+    * @see Sprite
+    */
     public void removeSprite(Sprite sprite)
     {
         while(isRendering)
@@ -272,7 +310,12 @@ public class SJGL extends JFrame
         }
         sprites.remove(sprite);
     }
-    
+
+    /** 
+    * Remove a background sprite from ArrayList backgroundSprites.
+    * @param sprite the sprite to be removed
+    * @see Sprite
+    */    
     public void removeBackgroundSprite(Sprite sprite)
     {
         while(isRendering)
@@ -281,7 +324,12 @@ public class SJGL extends JFrame
         }
         backgroundSprites.remove(sprite);
     }
-    
+
+    /** 
+    * Remove a label from ArrayList labels.
+    * @param label the label to be removed
+    * @see Label
+    */    
     public void removeLabel(Label label)
     {
         while(isRendering)
@@ -290,22 +338,41 @@ public class SJGL extends JFrame
         }
         labels.remove(label);
     }
-    
+
+    /** 
+    * Set the background color.
+    * @param color the color value
+    * @see java.awt.Color;
+    */    
     public void setBackgroundColor(Color color)
     {
          this.backgroundColor = color;
     }
-    
+
+    /** 
+    * Set global gravity value.
+    * @param gravity the gravity value
+    */        
     public void setGravity(int gravity)
     {
         this.gravity = gravity;
     }
-    
+
+    /** 
+    * Set the game camera.
+    * @param camera the camera
+    * @see Camera
+    */        
     public void setCamera(Camera camera)
     {
         this.camera = camera;
     }
-    
+
+    /** 
+    * Set the target of the camera.
+    * @param target the sprite for the camera to follow
+    * @see Sprite
+    */        
     public void setCameraTarget(Sprite target)
     {
         if(this.camera == null)
@@ -317,7 +384,12 @@ public class SJGL extends JFrame
             this.camera.setTarget(target);
         }
     }
-    
+
+    /** 
+    * Set the camera to an x/y location on the screen.
+    * @param x the x coordinate
+    * @param y the y coordinate
+    */        
     public void setCameraTarget(int x, int y)
     {
         if(this.camera == null)
@@ -329,33 +401,59 @@ public class SJGL extends JFrame
             this.camera.setTarget(x, y);
         }
     }
-    
+
+    /** 
+    * Returns the width of the canvas.
+    * @return the canvas width in pixels
+    */        
     public int getCanvasWidth()
     {
         return this.canvasWidth;
     }
-    
+
+    /** 
+    * Returns the height of the canvas.
+    * @return the canvas height in pixels 
+    */ 
     public int getCanvasHeight()
     {
         return this.canvasHeight;
     }
     
+    /** 
+    * Returns the current delta time.
+    * @return delta time
+    */ 
     public double getDT()
     {
         return this.dt;
     }
     
     // Keyboard 
+    /** 
+    * Adds key pressed to Set keys.
+    * @param key that is pressed
+    * @see java.awt.event.KeyEvent
+    */ 
     private void registerKeyPress(int key)
     {
           keys.add(key);
     }
-    
+
+    /** 
+    * Removes key pressed from Set keys.
+    * @param key that is released
+    * @see java.awt.event.KeyEvent
+    */ 
     private void registerKeyRelease(int key)
     {
           keys.remove(key);
     }
-    
+
+    /** 
+    * Indicates if a particular key is currently pressed.
+    * @return true if pressed / false if not currently pressed
+    */     
     public boolean isKeyPressed(int key)
     {
         if(keys.contains(key))
@@ -367,45 +465,80 @@ public class SJGL extends JFrame
     }
     
     // Mouse
+    /** 
+    * Indicates if the mouse is currently pressed.
+    * @return true if pressed / false if not currently pressed
+    */  
     public boolean getIsMousePressed()
     {
         return isMousePressed;
     }
-    
+
+    /** 
+    * Returns the x coordinate of the mouse.
+    * @return x coordinate of the mouse
+    */  
     public int getMouseX()
     {
         return mouseX;
     }
-    
+
+    /** 
+    * Returns the y coordinate of the mouse.
+    * @return y coordinate of the mouse
+    */  
     public int getMouseY()
     {
         return mouseY;
     }
-    
+
+    /** 
+    * Returns the game camera.
+    * @return the game camera
+    * @see Camera
+    */  
     public Camera getCamera()
     {
         return camera;
     }
     
-    // Sprites ArrayList
+    /** 
+    * Returns the ArrayList sprites.
+    * @return an ArrayList containing all game sprites
+    * @see Sprite
+    */  
     public ArrayList<Sprite> getSprites()
     {
          // Return copy to avoid concurrentModificationException
          return new ArrayList<Sprite>(sprites);
     }
-    
+
+    /** 
+    * Returns the ArrayList backgroundSprites.
+    * @return an ArrayList containing all game background sprites
+    * @see Sprite
+    */ 
     public ArrayList<Sprite> getBackgroundSprites()
     {
          // Return copy to avoid concurrentModificationException
          return new ArrayList<Sprite>(backgroundSprites);
     }
     
+    /** 
+    * Returns the ArrayList labels.
+    * @return an ArrayList containing all game labels
+    * @see Label
+    */ 
     public ArrayList<Label> getLabels()
     {
          // Return copy to avoid concurrentModificationException
          return new ArrayList<Label>(labels);
     }
     
+    /** 
+    * Sets the frames per second of the game.
+    * @param fps the target frames per second
+    */ 
     // Set FPS (also updates updateInterval and dt
     public void setFPS(int fps)
     {
@@ -416,9 +549,12 @@ public class SJGL extends JFrame
         this.timer.setDelay(this.updateInterval);
     }
     
+    /** 
+    * Helper method to pause changes to ArrayLists while rendering.
+    */ 
     private void sleep(int milliseconds)
     {
-        System.out.print("* ");
+        // System.out.print("* ");
         try
         {
             Thread.sleep(milliseconds);
