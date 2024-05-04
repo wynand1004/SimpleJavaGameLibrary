@@ -43,25 +43,25 @@ class RPGDemo
         {
             System.out.print("");
             // Your Game Code Goes Here
-            if(game.getKey() == KeyEvent.VK_UP)
+            if(game.isKeyPressed(KeyEvent.VK_UP))
             {
                 player.setDY(-150);
                 player.setDX(0);
             }
              
-            if(game.getKey() == KeyEvent.VK_DOWN)
+            if(game.isKeyPressed(KeyEvent.VK_DOWN))
             {
                 player.setDY(150);
                 player.setDX(0);
             }
             
-           if(game.getKey() == KeyEvent.VK_LEFT)
+           if(game.isKeyPressed(KeyEvent.VK_LEFT))
             {
                 player.setDY(0);
                 player.setDX(-150);
             }
              
-            if(game.getKey() == KeyEvent.VK_RIGHT)
+            if(game.isKeyPressed(KeyEvent.VK_RIGHT))
             {
                 player.setDY(0);
                 player.setDX(150);

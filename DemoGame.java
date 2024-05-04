@@ -55,19 +55,19 @@ class DemoGame
             bgm.play();
              
             // Deal with keypresses
-            if(game.getKey() == KeyEvent.VK_UP)
+            if(game.isKeyPressed(KeyEvent.VK_UP))
             {
                 player.setDY(-100);
                 player.setDX(0);
             }
              
-            if(game.getKey() == KeyEvent.VK_DOWN )
+            if(game.isKeyPressed(KeyEvent.VK_DOWN))
             {
                 player.setDY(100);
                 player.setDX(0);
             }
              
-            if(game.getKey() == KeyEvent.VK_SPACE)
+            if(game.isKeyPressed(KeyEvent.VK_SPACE))
             {
                 if(missile.getX() > game.getCanvasWidth())
                 {
@@ -112,5 +112,7 @@ class DemoGame
                 }
             }
         }
+        
+
     }
 }

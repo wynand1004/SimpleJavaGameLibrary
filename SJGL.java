@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
  
 /**
  * Simple Java Game Library based on:
@@ -42,9 +44,9 @@ public class SJGL extends JFrame
     
     // Labels
     private ArrayList<Label> labels = new ArrayList<Label>();
-        
-    // Currently pressed key
-    private int key = 0;
+    
+    // Currently pressed keys
+    private Set<Integer> keys = new HashSet<Integer>();
     
     // Mouse presses
     private boolean isMousePressed = false;
@@ -346,17 +348,22 @@ public class SJGL extends JFrame
     // Keyboard 
     private void registerKeyPress(int key)
     {
-          this.key = key;
+          keys.add(key);
     }
     
     private void registerKeyRelease(int key)
     {
-          this.key = 0;
+          keys.remove(key);
     }
     
-    public int getKey()
+    public boolean isKeyPressed(int key)
     {
-         return key;
+        if(keys.contains(key))
+        {
+            return true;
+        }
+        
+        return false;
     }
     
     // Mouse
