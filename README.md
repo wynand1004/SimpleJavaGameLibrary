@@ -34,7 +34,7 @@ Default canvas size is 1024 x 768.
 
 #### Keyboard
 
-```game.getKey() returns KeyEvent.VK_??```
+```game.isKeyPressed(KeyEvent.VK=??) returns true or false```
 
 ##### Keys
  - Up VK_UP
