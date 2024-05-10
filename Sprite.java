@@ -69,14 +69,19 @@ class Sprite
             // Check if image in imageMap
             if(imageMap.containsKey(filename))
             {
-                this.image = imageMap.get(filename);
-                this.originalImage = imageMap.get(filename);
-                
-                this.width = this.image.getWidth();
-                this.height = this.image.getHeight();
-                
-                this.size = (this.width + this.height) / 2;
-                // System.out.print("i ");
+                // Check if it is already the current image
+                if(this.originalImage != imageMap.get(filename))
+                {
+                    System.out.print("* ");
+                    this.image = imageMap.get(filename);
+                    this.originalImage = imageMap.get(filename);
+                    
+                    this.width = this.image.getWidth();
+                    this.height = this.image.getHeight();
+                    
+                    this.size = (this.width + this.height) / 2;
+                    // System.out.print("i ");
+                }
             }
             
             else
@@ -104,17 +109,21 @@ class Sprite
         try
         {
             // Check if image in imageMap
+            
             if(imageMap.containsKey(filename))
             {
-                this.image = imageMap.get(filename);
-                this.originalImage = imageMap.get(filename);
-                
-                this.width = this.image.getWidth();
-                this.height = this.image.getHeight();
-                
-                this.size = (this.width + this.height) / 2;
-                
-                // System.out.print(imageMap.size() + " ");
+                if(this.originalImage != imageMap.get(filename))
+                {
+                    this.image = imageMap.get(filename);
+                    this.originalImage = imageMap.get(filename);
+                    
+                    this.width = this.image.getWidth();
+                    this.height = this.image.getHeight();
+                    
+                    this.size = (this.width + this.height) / 2;
+                    
+                    // System.out.print(imageMap.size() + " ");
+                }
             }
             
             else
