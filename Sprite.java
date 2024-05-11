@@ -46,6 +46,11 @@ class Sprite
     // Images For Sprites that are reused
     private static HashMap<String, BufferedImage> imageMap = new HashMap<>();    
     
+    /** 
+    * Class constructor specifying x and y location.
+    * @param x the x location
+    * @param y the y location
+    */
     Sprite(double x, double y)
     {
         this.x = x;
@@ -53,7 +58,12 @@ class Sprite
         // this.initialize();
     }
 
-    
+    /** 
+    * Class constructor specifying x and y location and filename of sprite image.
+    * @param filename the name of the file
+    * @param x the x location
+    * @param y the y location
+    */    
     Sprite(double x, double y, String filename)
     {
         this.x = x;
@@ -62,6 +72,10 @@ class Sprite
         this.setImage(filename);
     }
     
+    /** 
+    * Set the image of a sprite.
+    * @param filename the name of the file
+    */      
     public void setImage(String filename)
     {
         try
@@ -103,156 +117,284 @@ class Sprite
         {
         }
     }
-    
+
+    /** 
+    * Move a sprite to x and y coordinates.
+    * @param x the x coordinate
+    * @param y the y coordinate
+    */       
     public void goTo(int x, int y)
     {
         this.x = x;
         this.y = y;
     }
     
+    /** 
+    * Move a sprite to x and y coordinates.
+    * @param x the x coordinate
+    * @param y the y coordinate
+    */        
     public void goTo(double x, double y)
     {
         this.x = x;
         this.y = y;
     }
-    
+
+    /** 
+    * Set the x coordinate.
+    * @param x the x coordinate
+    */        
     public void setX(int x)
     {
         this.x = x;
     }
-    
+
+    /** 
+    * Set the x coordinate.
+    * @param x the x coordinate
+    */      
     public void setX(double x)
     {
         this.x = x;
     }
     
+    /** 
+    * Get the x coordinate.
+    * @return the x coordinate
+    */     
     public double getX()
     {
         return this.x;
     }
-    
+
+    /** 
+    * Set the y coordinate.
+    * @param y the y coordinate
+    */   
     public void setY(int y)
     {
         this.y = y;
     }
     
+    /** 
+    * Set the y coordinate.
+    * @param y the y coordinate
+    */   
     public void setY(double y)
     {
         this.y = y;
     }
     
+    /** 
+    * Get the y coordinate.
+    * @return the y coordinate
+    */ 
     public double getY()
     {
         return this.y;
     }
     
+    /** 
+    * Get the type.
+    * @return the type
+    */ 
     public String getType()
     {
         return this.type;
     }
     
+    /** 
+    * Set the type.
+    * @param type the type
+    */  
     public void setType(String type)
     {
         this.type = type;
     }
     
+    /** 
+    * Set delta x.
+    * @param dx delta x
+    */ 
     public void setDX(int dx)
     {
         this.dx = dx;
     }
     
+    /** 
+    * Set delta x.
+    * @param dx delta x
+    */ 
     public void setDX(double dx)
     {
         this.dx = dx;
     }
     
+    /** 
+    * Set delta y.
+    * @param dy delta y
+    */ 
     public void setDY(int dy)
     {
         this.dy = dy;
     }
-    
+
+    /** 
+    * Set delta y.
+    * @param dy delta y
+    */     
     public void setDY(double dy)
     {
         this.dy = dy;
     }
     
+    /** 
+    * Set heading in degrees.
+    * @param heading heading
+    */ 
     public void setHeading(int heading)
     {
         this.heading = heading;
         rotate(heading);
     }
     
+    /** 
+    * Set heading in degrees.
+    * @param heading heading
+    */ 
     public void setHeading(double heading)
     {
         this.heading = heading;
         rotate(heading);
     }
     
+    /** 
+    * Set delta heading in degrees.
+    * @param dh delta heading
+    */ 
     public void setDH(int dh)
     {
         this.dh = dh;
     }
     
+    /** 
+    * Set delta heading in degrees.
+    * @param dh delta heading
+    */ 
     public void setDH(double dh)
     {
         this.dh = dh;
     }
     
+    /** 
+    * Set whether or not the sprite has physics (dx, dy, gravity, collisions, etc).
+    * @param hasPhysics has physics
+    */ 
     public void setHasPhysics(boolean hasPhysics)
     {
         this.hasPhysics = hasPhysics;
     }
     
+    /** 
+    * Get whether or not the sprite has physics.
+    * @return hasPhysics
+    */ 
     public boolean getHasPhysics()
     {
         return this.hasPhysics;
     }
     
+    /** 
+    * Get delta x
+    * @return dx
+    */ 
     public double getDX()
     {
         return this.dx;
     }
     
+    /** 
+    * Get delta y
+    * @return dy
+    */ 
     public double getDY()
     {
         return this.dy;
     }
     
+    /** 
+    * Get sprite width
+    * @return width
+    */ 
     public int getWidth()
     {
         return this.width;
     }
     
+    /** 
+    * Get sprite height
+    * @return height
+    */ 
     public int getHeight()
     {
         return this.height;
     }
     
+    /** 
+    * Set height in pixels.
+    * @param height height in pixels
+    */ 
     public void setHeight(int height)
     {
         this.height = height;
     }
     
+    /** 
+    * Set width in pixels.
+    * @param width width in pixels
+    */ 
     public void setWidth(int width)
     {
         this.width = width;
     }
     
+    /** 
+    * Set border action: NONE, BOUNCE, STOP, WARP.
+    * @param borderAction Sprite.BorderAction.____
+    */ 
     public void setBorderAction(BorderAction borderAction)
     {
         this.borderAction = borderAction;
     }
     
+    /** 
+    * Set color.
+    * @param color Color object
+    * @see java.awt.Color
+    */     
     public void setColor(Color color)
     {
         this.color = color;
     }
     
+    /** 
+    * Set whether or not to show a red bounding box around the sprite. Useful for debugging.
+    * @param boundingBox true / false
+    */  
     public void setBoundingBox(boolean boundingBox)
     {
         this.boundingBox = boundingBox;
     }
     
+    /** 
+    * Renders the sprite on a Graphics object, offset with a Camera object, canvas width, and canvas height.
+    * @param g Graphics object
+    * @param camera Camera object
+    * @param canvasWidth width of the canvas (used for not rendering off canvas objects and border action)
+    * @param canvasHeight height of the canvas (used for not rendering off canvas objects and border action)
+    * @see Graphics
+    * @see Camera
+    */      
     public void render(Graphics g, Camera camera, int canvasWidth, int canvasHeight)
     {
         if(!active)
@@ -309,6 +451,12 @@ class Sprite
         }
     }
     
+    /** 
+    * Updates sprite attributes based on physics (dx, dy)
+    * @param canvasWidth canvas width used for border action
+    * @param canvasHeight canvas height used for border action
+    * @param dt delta time 
+    */     
     public void update(int canvasWidth, int canvasHeight, double dt)
     {
       if(!active)
@@ -397,6 +545,11 @@ class Sprite
         }
     }
     
+    /** 
+    * Checks for a collision between two sprites using AABB collision detection
+    * @return true if a collision occurs
+    * @return false if no collision occurs
+    */ 
     public boolean isCollision(Sprite other)
     {
         // Do not register collision with self
@@ -416,6 +569,11 @@ class Sprite
         return xOverlap && yOverlap;
     }
     
+    /** 
+    * Checks for a collision between two sprites using distance checking (based on sprite size)
+    * @return true if a collision occurs
+    * @return false if no collision occurs
+    */ 
     public boolean isCircleCollision(Sprite other)
     {
         double a = this.x - other.x;
@@ -431,11 +589,20 @@ class Sprite
         return false;
     }
     
+    /** 
+    * Set whether or not a sprite is active. Non-active sprites are not rendered.
+    * @param active true / false
+    */  
     public void setActive(boolean active)
     {
         this.active = active;
     }
     
+    /** 
+    * Resize a sprite.
+    * @param width width in pixels
+    * @param height in pixels
+    */ 
     public void resize(int width, int height)
     {
         Image tempImage = this.originalImage.getScaledInstance(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -448,6 +615,10 @@ class Sprite
         this.height = height;
     }
     
+    /** 
+    * Scale a sprite.
+    * @param ratio percent to scale (0.5 is half current size, 2.0 is twice current size)
+    */ 
     public void scale(double ratio)
     {
         this.width = (int)(this.width * ratio);
@@ -459,6 +630,10 @@ class Sprite
         }
     }
     
+    /** 
+    * Rotate a sprite.
+    * @param angle angle in degrees to rotate the sprite from current heading.
+    */     
     public void rotate(double angle) {
         // REF: https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java
         // This ensures positive is counterclockwise rotation
@@ -499,11 +674,17 @@ class Sprite
         this.image = rotated;
     }
 
+    /** 
+    * Show a sprite. Sets isVisible to true.
+    */     
     public void show()
     {
         this.isVisible = true;
     }
     
+    /** 
+    * Hide a sprite. Sets isVisible to false.
+    */  
     public void hide()
     {
         this.isVisible = false;
