@@ -79,11 +79,7 @@ class DemoGame
             // Mouse clicked
             if(game.getIsMousePressed())
             {
-                // System.out.println("MOUSE DOWN at " + game.getMouseX() + " " + game.getMouseY());
-            }
-            else
-            {
-                // System.out.println("MOUSE RELEASED at " + game.getMouseX() + " " + game.getMouseY());
+                // System.out.println("MOUSE DOWN: " + game.getMouseX() + " " + game.getMouseY());
             }
              
             // Check for collisions

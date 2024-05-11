@@ -12,6 +12,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
+
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
@@ -142,18 +145,12 @@ public class SJGL extends JFrame
         canvas.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    mouseX = e.getX();
-                    mouseY = e.getY();
                     isMousePressed = true;
-                    // System.out.println("Mouse Pressed: " + e.getX() + " " + e.getY());
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    mouseX = e.getX();
-                    mouseY = e.getY();
                     isMousePressed = false;
-                    // System.out.println("Mouse Released: " + e.getX() + " " + e.getY());
                 }
             });
  
@@ -180,6 +177,13 @@ public class SJGL extends JFrame
                 {
                     camera.update();
                 }
+                
+                // Refresh mouse coordinates
+                Point point = MouseInfo.getPointerInfo().getLocation(); 
+                Point topLeft = canvas.getLocationOnScreen();
+                mouseX = point.x - topLeft.x;
+                mouseY = point.y - topLeft.y;
+                // System.out.println(mouseX + " " + mouseY);
             }
         });
         
