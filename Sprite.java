@@ -59,49 +59,7 @@ class Sprite
         this.x = x;
         this.y = y;
         this.filename = filename;
-        this.initialize();
-    }
-    
-    private void initialize()
-    {
-        try
-        {
-            // Check if image in imageMap
-            if(imageMap.containsKey(filename))
-            {
-                // Check if it is already the current image
-                if(this.originalImage != imageMap.get(filename))
-                {
-                    System.out.print("* ");
-                    this.image = imageMap.get(filename);
-                    this.originalImage = imageMap.get(filename);
-                    
-                    this.width = this.image.getWidth();
-                    this.height = this.image.getHeight();
-                    
-                    this.size = (this.width + this.height) / 2;
-                    // System.out.print("i ");
-                }
-            }
-            
-            else
-            {
-                BufferedImage image = ImageIO.read(new File(filename));
-                this.image = image;
-                this.originalImage = image;
-                
-                this.width = image.getWidth();
-                this.height = image.getHeight();
-                
-                this.size = (this.width + this.height) / 2;
-                
-                // System.out.println(this.width + " x " + this.height);
-                imageMap.put(filename, image);
-            }
-        }
-        catch(Exception e)
-        {
-        }
+        this.setImage(filename);
     }
     
     public void setImage(String filename)
