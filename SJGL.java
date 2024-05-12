@@ -468,6 +468,17 @@ public class SJGL extends JFrame
         return false;
     }
     
+    /** 
+    * Indicates if the mouse pointer is currently over a particular sprite.
+    * @return true if mouse is over / false if not over
+    */     
+    public boolean isMouseOverSprite(Sprite sprite)
+    {
+        boolean xRange = (sprite.getX() < mouseX) && (mouseX < (sprite.getX() + sprite.getWidth()));
+        boolean yRange = (sprite.getY() < mouseY) && (mouseY < (sprite.getY() + sprite.getHeight()));
+        return xRange && yRange;
+    }
+    
     // Mouse
     /** 
     * Indicates if the mouse is currently pressed.

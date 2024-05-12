@@ -3,6 +3,8 @@ import java.awt.event.KeyEvent;
 
 class DemoGame
 {
+    private SJGL game = new SJGL("Side Scrolling Shooter Demo by @TokyoEdtech", 1024, 768);
+    
     // Main Method
     public static void main(String[] args)
     {
@@ -81,6 +83,17 @@ class DemoGame
             {
                 // System.out.println("MOUSE DOWN: " + game.getMouseX() + " " + game.getMouseY());
             }
+            
+            // Mouse over
+            if(game.isMouseOverSprite(player))
+            {
+                player.setBoundingBox(true);
+            }
+            else
+            {
+                player.setBoundingBox(false);
+            }
+                
              
             // Check for collisions
             for(Sprite sprite: game.getSprites())
