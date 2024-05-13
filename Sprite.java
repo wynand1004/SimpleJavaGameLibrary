@@ -531,14 +531,28 @@ class Sprite
           
           else if(this.borderAction == BorderAction.STOP)
           {
-              if (x > canvasWidth - this.width || x < 0) 
+              if (x > canvasWidth - this.width) 
               {
-                 dx = 0;
+                  x = canvasWidth - this.width;  
+                  dx = 0;
               }
               
-              if (y > canvasHeight - this.height || y < 0) 
+              else if (x < 0)
               {
-                 dy = 0;
+                  x = 0;  
+                  dx = 0;
+              }
+              
+              if (y > canvasHeight - this.height) 
+              {
+                  y = canvasHeight - this.height;  
+                  dy = 0;
+              }
+              
+              else if (y < 0)
+              {
+                  y = 0;  
+                  dy = 0;
               }
               
           }
