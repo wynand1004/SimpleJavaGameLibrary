@@ -470,9 +470,9 @@ class Sprite
           y += dy * dt;
           heading += dh * dt;
           
-          // System.out.println(heading);
+          System.out.println(dh + " " + heading);
           
-          if(dh!=0)
+          if(heading!=0)
           {
               rotate(heading);
           }
@@ -651,6 +651,9 @@ class Sprite
     public void rotate(double angle) {
         // REF: https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java
         // This ensures positive is counterclockwise rotation
+        double centerX = this.x + (this.width/2);
+        double centerY = this.y + (this.height/2);
+        
         angle = -angle;
         
         double rads = Math.toRadians(angle);
@@ -683,9 +686,15 @@ class Sprite
         // Update width and height and heading
         this.width = rotated.getWidth();
         this.height = rotated.getHeight();
-        this.heading = (int)angle;
 
         this.image = rotated;
+        
+        double xOffset = (this.x + this.width/2) - centerX;
+        double yOffset = (this.y + this.height/2) - centerY;
+        
+        this.x -= xOffset;
+        this.y -= yOffset;
+        
     }
 
     /** 
