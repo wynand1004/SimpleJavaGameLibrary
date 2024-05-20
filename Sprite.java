@@ -15,6 +15,8 @@ class Sprite
     private double y = 0.0;
     private double dx = 0.0;
     private double dy = 0.0;
+    private double ddx = 0.0;
+    private double ddy = 0.0;
     private double heading = 0.0;
     private double dh = 0.0;
     
@@ -195,6 +197,15 @@ class Sprite
     }
     
     /** 
+    * Get the current heading.
+    * @return the heading in degrees
+    */ 
+    public double getHeading()
+    {
+        return this.heading;
+    }
+    
+    /** 
     * Get the type.
     * @return the type
     */ 
@@ -246,6 +257,25 @@ class Sprite
     public void setDY(double dy)
     {
         this.dy = dy;
+    }
+    
+    
+    /** 
+    * Set delta delta x.
+    * @param ddx delta delta x
+    */ 
+    public void setDDX(double ddx)
+    {
+        this.ddx = ddx;
+    }
+    
+    /** 
+    * Set delta delta y.
+    * @param ddy delta delta y
+    */     
+    public void setDDY(double ddy)
+    {
+        this.ddy = ddy;
     }
     
     /** 
@@ -321,7 +351,25 @@ class Sprite
     {
         return this.dy;
     }
+
+    /** 
+    * Get delta delta x (acceleration x)
+    * @return ddx
+    */ 
+    public double getDDX()
+    {
+        return this.ddx;
+    }
     
+    /** 
+    * Get delta delta y (acceleration y)
+    * @return ddy
+    */ 
+    public double getDDY()
+    {
+        return this.ddy;
+    }
+
     /** 
     * Get sprite width
     * @return width
@@ -466,13 +514,17 @@ class Sprite
       
       if(hasPhysics)
       {
+          dx += ddx;
+          dy -= ddy;
+          
           x += dx * dt;
           y += dy * dt;
+          
           heading += dh * dt;
           
-          System.out.println(dh + " " + heading);
+          // System.out.println(dh + " " + heading);
           
-          if(heading!=0)
+          if(dh!=0)
           {
               rotate(heading);
           }
