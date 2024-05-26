@@ -9,6 +9,7 @@ class Label
     private int size = 24;
     private Color color = Color.WHITE;
     private boolean isVisible = true;
+    private String font = "Courier";
     
     private double rotation = 0.0;
     
@@ -21,7 +22,7 @@ class Label
     
     public void render(Graphics g)
     {
-        Font font = new Font(g.getFont().getFontName(), Font.PLAIN, size);
+        Font font = new Font(this.font, Font.PLAIN, size);
         g.setFont(font);
         g.setColor(this.color);
         
@@ -85,5 +86,15 @@ class Label
     public void setRotation(double rotation)
     {
         this.rotation = -(int)rotation;
+    }
+    
+    public void setFont(String font)
+    {
+        this.font = font;
+    }
+    
+    public String getFont()
+    {
+        return this.font;
     }
 }
