@@ -141,6 +141,28 @@ class Sprite
         this.x = x;
         this.y = y;
     }
+    
+    /** 
+    * Move a sprite to x and y coordinates (center of sprite).
+    * @param x the x coordinate
+    * @param y the y coordinate
+    */       
+    public void goToCentered(int x, int y)
+    {
+        this.x = x - this.width/2;
+        this.y = y - this.height/2;
+    }
+    
+    /** 
+    * Move a sprite to x and y coordinates (center of sprite).
+    * @param x the x coordinate
+    * @param y the y coordinate
+    */        
+    public void goToCentered(double x, double y)
+    {
+        this.x = x - this.width/2.0;
+        this.y = y - this.height/2.0;
+    }
 
     /** 
     * Set the x coordinate.
